@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import { connect } from "react-redux";
+import { Router, Route } from 'react-router-dom';
 import './App.css';
+import { teatAction } from './store/actions/actionsCreator';
+import { getTest } from './store/selectors/selector';
+import createHistory from 'history/createBrowserHistory';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const history = createHistory()
+//export const FirebaseInstance = new Firebase();
+
+class App extends Component {
+ componentDidMount() {
+   this.props.loadTest();
+// FirebaseInstance.auth.onAuthStateChanged((user) => {
+//   this.props.setUser(user);
+// });
 }
 
-export default App;
+  render() {
+    return (
+      <div>
+       {
+        this.props.test
+       }
+       <div onClick={e => this.props.loadTest()}>click</div>
+       {/* <Router history={history}>
+          <Route path={'/login'} component={Login} />
+          <Route path={'/prodotti'} component={Catalogue} />
+          <Route path={'/nuovo-prodotto'} component={NewProduct} />
+          <Route path={'/import'} component={ImportData} />
+          <Route exact path={'/'} component={Catalogue} />
+        </Router> */}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return { 
+    test: getTest(state)
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadTest: () =>  dispatch(teatAction()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

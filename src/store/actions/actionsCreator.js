@@ -2,13 +2,15 @@ import {
   TEST,
   TEST_SUCCESS
 } from './actionsTypes.js'
-import { FirebaseInstance } from '../../App';
-import { history } from '../../App';
+//import { FirebaseInstance } from '../../App';
 
 export const teatAction = (product) => {
   return (dispatch, getState) => {
     let test = getState().test;
 
-    dispatch(testActionSuccess(test));
+    return dispatch({
+      type: TEST_SUCCESS,
+      test: test + 1
+    })
   } 
 }
