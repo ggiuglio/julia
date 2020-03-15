@@ -1,1 +1,1 @@
-export const getTest = state => state.test
+export const getBackground = state => state.selectedBackground;

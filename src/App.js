@@ -1,50 +1,40 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Router, Route } from 'react-router-dom';
 import './App.css';
-import { teatAction } from './store/actions/actionsCreator';
-import { getTest } from './store/selectors/selector';
+import { chooseBackground } from './store/actions/actionsCreator';
 import createHistory from 'history/createBrowserHistory';
+import About from './about/about';
+import Home from './home/home';
 
 export const history = createHistory()
 //export const FirebaseInstance = new Firebase();
 
 class App extends Component {
- componentDidMount() {
-   this.props.loadTest();
-// FirebaseInstance.auth.onAuthStateChanged((user) => {
-//   this.props.setUser(user);
-// });
-}
+  componentDidMount() {
+    this.props.chooseBackground();
+    // FirebaseInstance.auth.onAuthStateChanged((user) => {
+    //   this.props.setUser(user);
+    // });
+  }
 
   render() {
     return (
-      <div>
-       {
-        this.props.test
-       }
-       <div onClick={e => this.props.loadTest()}>click</div>
-       {/* <Router history={history}>
-          <Route path={'/login'} component={Login} />
-          <Route path={'/prodotti'} component={Catalogue} />
-          <Route path={'/nuovo-prodotto'} component={NewProduct} />
-          <Route path={'/import'} component={ImportData} />
-          <Route exact path={'/'} component={Catalogue} />
-        </Router> */}
-      </div>
+      <Router history={history}>
+        <Route path={'/'} component={Home} />
+        <Route path={'/profile'} component={About} />
+      </Router>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { 
-    test: getTest(state)
-  }
+  return {}
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadTest: () =>  dispatch(teatAction()),
+    chooseBackground: () => dispatch(chooseBackground())
   }
 };
 

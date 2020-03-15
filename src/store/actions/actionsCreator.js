@@ -1,16 +1,12 @@
 import {
-  TEST,
-  TEST_SUCCESS
+  CHOOSE_BACKGROUND
 } from './actionsTypes.js'
 //import { FirebaseInstance } from '../../App';
 
-export const teatAction = (product) => {
-  return (dispatch, getState) => {
-    let test = getState().test;
-
+export const chooseBackground = () => {
+  return dispatch => {
     return dispatch({
-      type: TEST_SUCCESS,
-      test: test + 1
+      type: CHOOSE_BACKGROUND
     })
-  } 
+  }
 }
