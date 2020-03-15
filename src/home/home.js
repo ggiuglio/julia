@@ -15,8 +15,11 @@ const Background = styled.div`
 
 const Name = styled.div`
   color: white;
-  font-size: 100px;
   text-align: center;
+  font-size: 50px;
+  @media (min-width: 600px) {
+    font-size: 100px;
+  }
 `;
 const Job = styled.div`
   color: white;
@@ -43,11 +46,19 @@ const About = styled.div`
 `;
 
 const Content = styled.div`
-  width: 50vw;
-  padding-left: 25vw;
-  height: 100px;
-  padding-top: 25vh;
   letter-spacing: 2px;
+  box-sizing: border-box;
+  width: 100vw;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 25vh;
+
+  @media (min-width: 600px) {
+    box-sizing: content-box;
+    width: 50vw;
+    padding-left: 25vw;
+    padding-right: 25vw;
+  }
 `;
 
 const Home = ({ background }) => {
