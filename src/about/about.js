@@ -1,10 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+import Menu from '../menu/menu';
+
+const Container = styled.div`
+  height: 100vh;
+  width: 100vw;
+`;
 
 const About = () => {
-  return <div>
+  return <Container>
+    <Menu></Menu>
+    this is Julia
 
-
-  </div>
+  </Container>
 }
 
 export default About;

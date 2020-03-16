@@ -21,8 +21,8 @@ class App extends Component {
   render() {
     return (
       <Router history={history}>
-        <Route path={'/'} component={Home} />
-        <Route path={'/profile'} component={About} />
+        <Route path={'/about'} component={About} />
+        <Route exact path={'/'} component={Home} />
       </Router>
     );
   }

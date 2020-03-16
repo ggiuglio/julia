@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getBackground } from '../store/selectors/selector';
+import { history } from '../App';
+
 import sea from '../assets/images/sea.jpg';
 import desert from '../assets/images/desert.jpg';
 import forest from '../assets/images/forest.jpg';
@@ -81,6 +83,10 @@ const Home = ({ background }) => {
       break;
   }
 
+  const goToAbout = () => {
+    history.push('/about')
+  }
+
   return <Background image={bg}>
     <Content>
       <Name>
@@ -89,7 +95,7 @@ const Home = ({ background }) => {
       <Job>
         Journalist, Writer and Researcher
       </Job>
-      <About>
+      <About onClick={() => goToAbout()}>
         ABOUT
       </About>
     </Content>
