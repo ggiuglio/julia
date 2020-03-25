@@ -1,11 +1,14 @@
-import { 
-    CHOOSE_BACKGROUND
+import {
+    CHOOSE_BACKGROUND,
+    SET_USER,
+    LOGIN_ERROR,
+    RESET_LOGIN_ERROR,
 } from '../actions/actionsTypes'
 
 export const INITIAL_STATE = {
-  test: 0,
-  backgrounds: ['sea', 'elephants', 'monkey'],
-  selectedBackground: '',
+    test: 0,
+    backgrounds: ['sea', 'elephants', 'monkey'],
+    selectedBackground: '',
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -15,7 +18,24 @@ const Reducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state, selectedBackground: state.backgrounds[bgIndex]
             }
-        default: 
+        case SET_USER:
+            return {
+                ...state,
+                user: action.user
+            }
+        case LOGIN_ERROR: {
+            return {
+                ...state,
+                loginError: action.error
+            }
+        }
+        case RESET_LOGIN_ERROR: {
+            return {
+                ...state,
+                loginError: ''
+            }
+        }
+        default:
             return state
     }
 }

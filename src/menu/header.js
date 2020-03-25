@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from "react-redux";
 import styled from 'styled-components';
 import Menu from './menu.js';
 import Title from './title.js';
+import { logout } from '../store/actions/actionsCreator';
+import { getUser } from '../store/selectors/selector';
 
 const HeaderContent = styled.div`
   width: 100vw;
@@ -15,12 +18,38 @@ const HeaderContent = styled.div`
     margin: 20px 20px;
   }
 `;
+const LogoutButton = styled.div`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  border: 1px solid;
+  font-size: 12px;
+  padding: 2px 8px;
+  cursor: pointer;
+  :hover {
+    background-color: #cccccc;
+    color: white;
+  }
+`;
 
-const Header = () => {
+const Header = ({user, logout}) => {
   return <HeaderContent>
+    { user ? <LogoutButton onClick={() => logout()}>logout</LogoutButton> : '' }
     <Title></Title>
     <Menu></Menu>
   </HeaderContent>
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return { 
+    user: getUser(state)
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (Header);
