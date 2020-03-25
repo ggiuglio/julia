@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { getBackground } from '../store/selectors/selector';
@@ -7,12 +7,18 @@ import { history } from '../App';
 import sea from '../assets/images/sea.jpg';
 import desert from '../assets/images/desert.jpg';
 import forest from '../assets/images/forest.jpg';
+import elephants from '../assets/images/elephants.jpg';
+import monkey from '../assets/images/monkey.jpg';
 
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   background-image: ${({ image }) => 'url(' + image + ')'};
+  background-position-x: center;
   background-size: cover;
+  box-sizing: border-box;
+  overflow: hidden;
 `;
 
 const Name = styled.div`
@@ -25,7 +31,7 @@ const Name = styled.div`
 `;
 const Job = styled.div`
   color: white;
-  font-size: 25px;
+  font-size: 18px;
   text-align: center;
   margin-top: 20px;
   margin-bottom: 40px;
@@ -53,7 +59,7 @@ const Content = styled.div`
   width: 100vw;
   padding-left: 25px;
   padding-right: 25px;
-  padding-top: 25vh;
+  padding-top: 20vh;
 
   @media (min-width: 600px) {
     box-sizing: content-box;
@@ -63,7 +69,22 @@ const Content = styled.div`
   }
 `;
 
+
 const Home = ({ background }) => {
+  const homeContainer = React.createRef();
+
+  useEffect(() => {
+    if (homeContainer.current) {
+      setHeight();
+      window.addEventListener('resize', () => setHeight());
+    }
+  });
+
+  const setHeight = () => {
+    let vh = window.innerHeight * 0.01;
+    homeContainer.current.style.setProperty('--vh', `${vh}px`);
+  }
+
   let bg;
   switch (background) {
     case 'sea': {
@@ -78,26 +99,34 @@ const Home = ({ background }) => {
       bg = forest;
       break;
     }
+    case 'elephants': {
+      bg = elephants;
+      break;
+    }
+    case 'monkey': {
+      bg = monkey;
+      break;
+    }
     default:
       bg = sea;
       break;
   }
 
   const goToAbout = () => {
-    history.push('/about')
+    history.push('/julia/about')
   }
 
-  return <Background image={bg}>
+  return <Background image={bg} ref={homeContainer}>
     <Content>
       <Name>
         Julia Amberger
-      </Name>
+       </Name>
       <Job>
         Journalist, Writer and Researcher
-      </Job>
+       </Job>
       <About onClick={() => goToAbout()}>
         ABOUT
-      </About>
+       </About>
     </Content>
   </Background>
 }

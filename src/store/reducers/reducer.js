@@ -4,7 +4,7 @@ import {
 
 export const INITIAL_STATE = {
   test: 0,
-  backgrounds: ['sea', 'forest', 'desert'],
+  backgrounds: ['sea', 'elephants', 'monkey'],
   selectedBackground: '',
 };
 

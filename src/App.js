@@ -4,8 +4,10 @@ import { Router, Route } from 'react-router-dom';
 import './App.css';
 import { chooseBackground } from './store/actions/actionsCreator';
 import createHistory from 'history/createBrowserHistory';
+import Main from './main/main';
 import About from './about/about';
 import Home from './home/home';
+import Print from './print/print';
 
 export const history = createHistory()
 //export const FirebaseInstance = new Firebase();
@@ -21,7 +23,9 @@ class App extends Component {
   render() {
     return (
       <Router history={history}>
-        <Route path={'/about'} component={About} />
+        <Route path={'/julia'} component={Main} />
+        <Route path={'/julia/about'} component={About} />
+        <Route path={'/julia/print'} component={Print} />
         <Route exact path={'/'} component={Home} />
       </Router>
     );
