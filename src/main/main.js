@@ -11,11 +11,6 @@ const Container = styled.div`
   }
 `;
 
-const Articles = styled.div`
-  margin-top: 20px;
-  text-align: justify;
-`;
-
 const Main = () => {
   return <Container>
     <Header></Header>

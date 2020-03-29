@@ -8,13 +8,12 @@ import createHistory from 'history/createBrowserHistory';
 import Main from './main/main';
 import About from './about/about';
 import Home from './home/home';
-import Print from './print/print';
+import Articles from './articles/articles';
 import Login from './login/login'
 import { 
   logout,
   setUser
 } from './store/actions/actionsCreator';
-
 export const history = createHistory()
 export const FirebaseInstance = new Firebase();
 
@@ -28,13 +27,15 @@ class App extends Component {
 
   render() {
     return (
+      <div>
       <Router history={history}>
         <Route path={'/login'} component={Login} />
         <Route path={'/julia'} component={Main} />
         <Route path={'/julia/about'} component={About} />
-        <Route path={'/julia/print'} component={Print} />
+        <Route path={'/julia/articles'} component={Articles} />
         <Route exact path={'/'} component={Home} />
       </Router>
+      </div>
     );
   }
 }

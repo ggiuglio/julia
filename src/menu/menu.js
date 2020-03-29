@@ -68,7 +68,7 @@ const Menu = () => {
         history.push('/julia/about')
         break;
       case 2:
-        history.push('/julia/print')
+        history.push('/julia/articles')
         break;
       default:
         break;

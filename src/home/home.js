@@ -20,7 +20,6 @@ const Background = styled.div`
   box-sizing: border-box;
   overflow: hidden;
 `;
-
 const Name = styled.div`
   color: white;
   text-align: center;
@@ -36,7 +35,6 @@ const Job = styled.div`
   margin-top: 20px;
   margin-bottom: 40px;
 `;
-
 const About = styled.div`
   width: fit-content;
   border: 2px solid white;
@@ -52,7 +50,6 @@ const About = styled.div`
     color: black;
   }
 `;
-
 const Content = styled.div`
   letter-spacing: 2px;
   box-sizing: border-box;
@@ -69,7 +66,6 @@ const Content = styled.div`
   }
 `;
 
-
 const Home = ({ background }) => {
   const homeContainer = React.createRef();
 
@@ -81,8 +77,10 @@ const Home = ({ background }) => {
   });
 
   const setHeight = () => {
-    let vh = window.innerHeight * 0.01;
-    homeContainer.current.style.setProperty('--vh', `${vh}px`);
+    if (homeContainer.current) {
+      let vh = window.innerHeight * 0.01;
+      homeContainer.current.style.setProperty('--vh', `${vh}px`);
+    }
   }
 
   let bg;
