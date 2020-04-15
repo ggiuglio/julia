@@ -3,12 +3,16 @@ import {
     SET_USER,
     LOGIN_ERROR,
     RESET_LOGIN_ERROR,
+    LOAD_ARTICLES,
+    SET_ARTICLE_ON_EDIT
 } from '../actions/actionsTypes'
 
 export const INITIAL_STATE = {
     test: 0,
     backgrounds: ['sea', 'elephants', 'monkey'],
     selectedBackground: '',
+    articles: undefined,
+    articleOnEdit: undefined
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -33,6 +37,18 @@ const Reducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 loginError: ''
+            }
+        }
+        case LOAD_ARTICLES: {
+            return {
+                ...state,
+                articles: action.articles
+            }
+        }
+        case SET_ARTICLE_ON_EDIT: {
+            return {
+                ...state,
+                articleOnEdit: action.articledId
             }
         }
         default:

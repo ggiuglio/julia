@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-
+import { connect } from "react-redux";
+import { loadArticlesAction } from '../store/actions/actionsCreator';
+import { getArticles, getArticleOnEdit } from '../store/selectors/selector';
+import ActionControls from '../common/actionControls/actionControls';
 import defaultImg from '../assets/images/acet.jpg';
 
 const slideIn = keyframes`
@@ -18,12 +21,13 @@ const Container = styled.div`
   width: 100vw;
   animation: ${slideIn} .2s linear;
   ::-webkit-scrollbar {
-    background: #efefef;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    background-color: #F5F5F5;
   }
   ::-webkit-scrollbar-thumb {
-    backgorund-color: black
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #cccccc;
   }
   @media (min-width: 600px) {
     max-height: calc(100vh - 140px);
@@ -36,7 +40,7 @@ const MainContent = styled.div`
   padding: 0 5vw;
 `;
 const Introduction = styled.div`
-  margin-top: 20px;
+  padding-top: 20px;
   font-size: 16px;
   text-align: justify;
   border-bottom: 1px solid #cccccc;
@@ -45,83 +49,105 @@ const Introduction = styled.div`
 const Article = styled.div`
   border-bottom: 1px solid #cccccc;
   padding: 15px 5px;
+  cursor: pointer;
+  width: 100%;
   :last-child {
     margin-bottom: 20px;
   }
 `;
 const ArticleImage = styled.img`
-  withd: 100px;
-  height: 100px;
+  width: 100px;
     @media (min-width: 600px) {
-    width: 20vw;
-    height: 20vw;
-  }
+      width: 20vw;
+    }
 `;
 const ArticleBody = styled.div`
   display: inline-flex;
-  align-items: center;
 `;
 const ArticleText = styled.div`
+  align-items: top;
   font-size: 14px;
   flex-grow: 1;
   text-align: justify;
+  box-sizing: border-box;
+  @media (min-width: 600px) {
+    padding-right: 20px;
+  }
 `;
 const ArticleTitle = styled.div`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+`;
+const ArticleTitleEdit = styled.input`
+`;
+const ArticleActions = styled.div``;
+const Icon = styled.img`
+  z-index: 100;
+  width: 20px;
+  padding: 5px;
+  :hover {
+    border: 1px solid; 
+  }
 `;
 
-const Articles = () => {
+const Articles = ({ articles, articleOnEdit, loadArticles }) => {
+  useEffect(() => {
+    if (!articles) {
+      loadArticles();
+    }
+  });
+
+  const openArticle = (link) => {
+    window.open(link);
+  };
+
+  console.log('articleOnEdit', articleOnEdit);
+
+
   return <Container>
     <MainContent>
       <Introduction>
         Here there are the articles Julia worte in the last years, some of the websited that hown the contents
         might have advertising or paywall
       </Introduction>
-      <div>
-      <Article>
-        <ArticleBody>
-          <ArticleImage src={defaultImg} />
-          <ArticleText>
-            <ArticleTitle>
-              One article
-            </ArticleTitle>
-              The article is about this, this and that. And also aobut other thigs that I saw around and that
-              I found pretty cool <br />
-              Read here the outcome of the trip I did to find out this stuff and some more
-          </ArticleText>
-        </ArticleBody>
-      </Article>
-      <Article>
-        <ArticleBody>
-          <ArticleImage src={defaultImg} />
-          <ArticleText>
-            <ArticleTitle>
-              One article
-            </ArticleTitle>
-              The article is about this, this and that. And also aobut other thigs that I saw around and that
-              I found pretty cool <br />
-              Read here the outcome of the trip I did to find out this stuff and some more
-          </ArticleText>
-        </ArticleBody>
-      </Article>
-      <Article>
-        <ArticleBody>
-          <ArticleImage src={defaultImg} />
-          <ArticleText>
-            <ArticleTitle>
-              One article
-            </ArticleTitle>
-              The article is about this, this and that. And also aobut other thigs that I saw around and that
-              I found pretty cool <br />
-              Read here the outcome of the trip I did to find out this stuff and some more
-          </ArticleText>
-        </ArticleBody>
-      </Article>
-      </div>
+      {
+        articles ? articles.map(article =>
+          <Article key={article.id} onClick={() => openArticle(article.link)}>
+            <ArticleBody>
+              <ArticleImage src={defaultImg} />
+              <ArticleText>
+                {(articleOnEdit !== article.id) ?
+                  <ArticleTitle> {article.title} </ArticleTitle>
+                  : ''
+                  // <ArticleTitle>
+                  //   <ArticleTitleEdit value={articleOnEditTitle} onChange={e => setArticleOnEditTitle(e.target.value)} />
+                  // </ArticleTitle>
+                }
+                {article.text}
+              </ArticleText>
+              <ArticleActions>
+                <ActionControls article={article}></ActionControls>
+              </ArticleActions>
+            </ArticleBody>
+          </Article>
+        ) : ''
+      }
     </MainContent>
   </Container>
 }
 
-export default Articles;
+const mapStateToProps = state => {
+  return {
+    articles: getArticles(state),
+    articleOnEdit: getArticleOnEdit(state)
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadArticles: () => dispatch(loadArticlesAction()),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Articles);

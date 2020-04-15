@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { login, resetLoginError } from '../store/actions/actionsCreator';
+import { loginAction, resetLoginErrorAction } from '../store/actions/actionsCreator';
 import { getUser, getLoginError} from '../store/selectors/selector';
 import { history } from '../App';
 
@@ -114,8 +114,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (username, password) => dispatch(login(username, password)),
-    resetLoginError: () => dispatch(resetLoginError())
+    login: (username, password) => dispatch(loginAction(username, password)),
+    resetLoginError: () => dispatch(resetLoginErrorAction())
   }
 };
 

@@ -6,7 +6,7 @@ import { FirebaseConfig } from "./firebaseConfig";
 class Firebase {
   constructor() {
     app.initializeApp(FirebaseConfig);
-    this.products = app.database().ref('products');
+    this.articles = app.database().ref('articles');
     this.provider = new firebase.auth.GoogleAuthProvider()
 
     this.auth = app.auth();

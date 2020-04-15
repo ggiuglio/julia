@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Router, Route } from 'react-router-dom';
 import './App.css';
 import Firebase from './firebase/firebase';
-import { chooseBackground } from './store/actions/actionsCreator';
 import createHistory from 'history/createBrowserHistory';
 import Main from './main/main';
 import About from './about/about';
@@ -11,8 +10,9 @@ import Home from './home/home';
 import Articles from './articles/articles';
 import Login from './login/login'
 import { 
-  logout,
-  setUser
+  chooseBackgroundAction,
+  logoutAction,
+  setUserAction
 } from './store/actions/actionsCreator';
 export const history = createHistory()
 export const FirebaseInstance = new Firebase();
@@ -46,9 +46,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    chooseBackground: () => dispatch(chooseBackground()),
-    logout: () => dispatch(logout()),
-    setUser: (user) => dispatch(setUser(user))
+    chooseBackground: () => dispatch(chooseBackgroundAction()),
+    logout: () => dispatch(logoutAction()),
+    setUser: (user) => dispatch(setUserAction(user))
   }
 };
 

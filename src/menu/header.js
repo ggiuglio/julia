@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from 'styled-components';
 import Menu from './menu.js';
 import Title from './title.js';
-import { logout } from '../store/actions/actionsCreator';
+import { logoutAction } from '../store/actions/actionsCreator';
 import { getUser } from '../store/selectors/selector';
 
 const HeaderContent = styled.div`
@@ -48,7 +48,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout()),
+    logout: () => dispatch(logoutAction()),
   }
 };
 

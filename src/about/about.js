@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import julia from '../assets/images/julia.png';
 
 const slideIn = keyframes`
@@ -17,18 +17,19 @@ const Container = styled.div`
   width: 100vw;
   animation: ${slideIn} .2s linear;
   @media (min-width: 600px) {
-    max-height: calc(100vh - 140px);
+    max-height: calc(100vh - 120px);
     overflow-y: auto;
     width: 100%;
     margin-top: 20px;
     box-sizing: border-box;
     ::-webkit-scrollbar {
-      background: #efefef;
-      width: 3px;
-      height: 3px;
+      width: 4px;
+      background-color: #F5F5F5;
     }
     ::-webkit-scrollbar-thumb {
-      backgorund-color: black
+      height: 20px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #cccccc;
     }
   }
 `;
