@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { setArticleOnEdit } from '../../store/actions/actionsCreator';
-import { getArticleOnEdit } from '../../store/selectors/selector';
-import editIcon from '../../assets/images/edit.png';
-import deleteIcon from '../../assets/images/delete.png';
-import xIcon from '../../assets/images/x.png';
+import { setArticleOnEdit, deleteArticleConfirm } from '../store/actions/actionsCreator';
+import { getArticleOnEdit } from '../store/selectors/selector';
+import editIcon from '../assets/images/edit.png';
+import deleteIcon from '../assets/images/delete.png';
+import xIcon from '../assets/images/x.png';
 
 const ArticleActions = styled.div``;
 const Icon = styled.img`
@@ -17,24 +17,23 @@ const Icon = styled.img`
   }
 `;
 
-const ActionControls = ({ article, setOnEdit, getArticleOnEdit }) => {
+const ActionControls = ({ article, setOnEdit, articleOnEdit, deleteArticle }) => {
 
-  console.log('article', article);
-
-  const deleteArticle = (event) => {
+  const deleteArticleEvent = (event) => {
     event.stopPropagation();
     console.log('delete article', event);
+    deleteArticle(article.firebaseId);
   }
 
-  const editArticle = (event) => {
+  const editArticleEvent = (event) => {
     event.stopPropagation();
     console.log('edit article', article);
-    setOnEdit(article.id);
+    setOnEdit(article.firebaseId);
   }
 
   return <ArticleActions>
-    <Icon src={editIcon} onClick={(e) => editArticle(e)}></Icon>
-    <Icon src={deleteIcon} onClick={(e) => deleteArticle(e)}></Icon>
+    <Icon src={editIcon} onClick={(e) => editArticleEvent(e)}></Icon>
+    <Icon src={deleteIcon} onClick={(e) => deleteArticleEvent(e)}></Icon>
   </ArticleActions>
 }
 const mapStateToProps = state => {
@@ -46,6 +45,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setOnEdit: (articleId) => dispatch(setArticleOnEdit(articleId)),
+    deleteArticle: (articleId) => dispatch(deleteArticleConfirm(articleId))
   }
 };
 

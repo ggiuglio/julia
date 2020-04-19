@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { connect } from "react-redux";
 import { loadArticlesAction } from '../store/actions/actionsCreator';
-import { getArticles, getArticleOnEdit } from '../store/selectors/selector';
-import ActionControls from '../common/actionControls/actionControls';
+import { getArticles, getArticleOnEdit, getUser } from '../store/selectors/selector';
+import ActionControls from './actionControls';
+import Title from './title';
+import Text from './text';
 import defaultImg from '../assets/images/acet.jpg';
 
 const slideIn = keyframes`
@@ -63,8 +65,9 @@ const ArticleImage = styled.img`
 `;
 const ArticleBody = styled.div`
   display: inline-flex;
+  width: 100%;
 `;
-const ArticleText = styled.div`
+const ArticleContent = styled.div`
   align-items: top;
   font-size: 14px;
   flex-grow: 1;
@@ -74,13 +77,7 @@ const ArticleText = styled.div`
     padding-right: 20px;
   }
 `;
-const ArticleTitle = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-`;
-const ArticleTitleEdit = styled.input`
-`;
+
 const ArticleActions = styled.div``;
 const Icon = styled.img`
   z-index: 100;
@@ -91,7 +88,7 @@ const Icon = styled.img`
   }
 `;
 
-const Articles = ({ articles, articleOnEdit, loadArticles }) => {
+const Articles = ({ articles, articleOnEdit, loadArticles, user }) => {
   useEffect(() => {
     if (!articles) {
       loadArticles();
@@ -99,11 +96,8 @@ const Articles = ({ articles, articleOnEdit, loadArticles }) => {
   });
 
   const openArticle = (link) => {
-    window.open(link);
+    //window.open(link);
   };
-
-  console.log('articleOnEdit', articleOnEdit);
-
 
   return <Container>
     <MainContent>
@@ -116,18 +110,12 @@ const Articles = ({ articles, articleOnEdit, loadArticles }) => {
           <Article key={article.id} onClick={() => openArticle(article.link)}>
             <ArticleBody>
               <ArticleImage src={defaultImg} />
-              <ArticleText>
-                {(articleOnEdit !== article.id) ?
-                  <ArticleTitle> {article.title} </ArticleTitle>
-                  : ''
-                  // <ArticleTitle>
-                  //   <ArticleTitleEdit value={articleOnEditTitle} onChange={e => setArticleOnEditTitle(e.target.value)} />
-                  // </ArticleTitle>
-                }
-                {article.text}
-              </ArticleText>
+              <ArticleContent>
+                <Title article={article}></Title>
+                <Text article={article}></Text>
+              </ArticleContent>
               <ArticleActions>
-                <ActionControls article={article}></ActionControls>
+                {user ? <ActionControls article={article}></ActionControls> : ''}
               </ArticleActions>
             </ArticleBody>
           </Article>
@@ -140,7 +128,8 @@ const Articles = ({ articles, articleOnEdit, loadArticles }) => {
 const mapStateToProps = state => {
   return {
     articles: getArticles(state),
-    articleOnEdit: getArticleOnEdit(state)
+    articleOnEdit: getArticleOnEdit(state),
+    user: getUser(state)
   }
 };
 

@@ -4,7 +4,8 @@ import {
     LOGIN_ERROR,
     RESET_LOGIN_ERROR,
     LOAD_ARTICLES,
-    SET_ARTICLE_ON_EDIT
+    SET_ARTICLE_ON_EDIT,
+    DELETE_ARTICLE_SUCCESS,
 } from '../actions/actionsTypes'
 
 export const INITIAL_STATE = {
@@ -40,16 +41,27 @@ const Reducer = (state = INITIAL_STATE, action) => {
             }
         }
         case LOAD_ARTICLES: {
+            let articles = [];
+            if (action.articles) {
+                Object.keys(action.articles).forEach( k => {
+                    action.articles[k].firebaseId = k;
+                    articles.push(action.articles[k])
+                });
+            }
             return {
                 ...state,
-                articles: action.articles
+                articles: articles
             }
         }
         case SET_ARTICLE_ON_EDIT: {
             return {
                 ...state,
-                articleOnEdit: action.articledId
+                articleOnEdit: action.articleId
             }
+        }
+        case DELETE_ARTICLE_SUCCESS: {
+            console.log('articel deleted');
+            return state;
         }
         default:
             return state

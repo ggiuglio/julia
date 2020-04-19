@@ -4,7 +4,8 @@ import {
   RESET_LOGIN_ERROR,
   SET_USER,
   LOAD_ARTICLES,
-  SET_ARTICLE_ON_EDIT
+  SET_ARTICLE_ON_EDIT,
+  DELETE_ARTICLE_SUCCESS
 } from './actionsTypes.js'
 import { FirebaseInstance } from '../../App';
 import { history } from '../../App';
@@ -72,6 +73,19 @@ export const setArticleOnEdit = (articleId) => {
     dispatch({
       type: SET_ARTICLE_ON_EDIT,
       articleId: articleId
+    });
+  }
+}
+
+export const deleteArticleConfirm = (articleId) => {
+  return dispatch => {
+    return FirebaseInstance.articles.child(articleId).remove().then(() => {
+      return dispatch({
+        type: DELETE_ARTICLE_SUCCESS
+      })
+    })
+    .catch((r) => {
+      console.log('error', r);
     });
   }
 }

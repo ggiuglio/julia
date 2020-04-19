@@ -1,32 +1,32 @@
 {
-  "articles": [
-    {
+  "articles": {
+    "ab": {
       "id": 1,
       "title": "First article title",
       "text": "This is the text of the first article, is not too long but is very useless. The next one I'll try to make it better",
       "imageSrc": "article1.jpg",
       "link": "http://repubblica.it"
     },
-    {
+    "cd": {
       "id": 2,
       "title": "Second article title",
       "text": "This is the text of the second article, is not too long but is very useless. The next one I'll try to make it better",
       "imageSrc": "article1.jpg",
       "link": "http://repubblica.it"
     },
-    {
+    "ef": {
       "id": 3,
       "title": "Third article title",
       "text": "This is the text of the third article, is not too long but is very useless. The next one I'll try to make it better",
       "imageSrc": "article1.jpg",
       "link": "http://repubblica.it"
     },
-    {
+    "gh": {
       "id": 4,
       "title": "Fourth article title",
       "text": "This is the text of the fourth article, is not too long but is very useless. The next one I'll try to make it better",
       "imageSrc": "article1.jpg",
       "link": "http://repubblica.it"
     }
-  ]
+  }
 }
