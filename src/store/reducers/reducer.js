@@ -5,7 +5,10 @@ import {
     RESET_LOGIN_ERROR,
     LOAD_ARTICLES,
     SET_ARTICLE_ON_EDIT,
+    EDIT_ARTICLE_TITLE,
+    EDIT_ARTICLE_TEXT,
     DELETE_ARTICLE_SUCCESS,
+    EDIT_ARTICLE_SUCCESS
 } from '../actions/actionsTypes'
 
 export const INITIAL_STATE = {
@@ -13,7 +16,9 @@ export const INITIAL_STATE = {
     backgrounds: ['sea', 'elephants', 'monkey'],
     selectedBackground: '',
     articles: undefined,
-    articleOnEdit: undefined
+    articleOnEdit: undefined,
+    articleTitleEdit: undefined,
+    articleTextEdit: undefined
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -56,12 +61,33 @@ const Reducer = (state = INITIAL_STATE, action) => {
         case SET_ARTICLE_ON_EDIT: {
             return {
                 ...state,
-                articleOnEdit: action.articleId
+                articleOnEdit: action.articleId,
+                articleTitleEdit: undefined,
+                articleTextEdit: undefined,
             }
         }
         case DELETE_ARTICLE_SUCCESS: {
-            console.log('articel deleted');
             return state;
+        }
+        case EDIT_ARTICLE_TITLE: {
+            return {
+                ...state,
+                articleTitleEdit: action.title
+            }
+        }
+        case EDIT_ARTICLE_TEXT: {
+            return {
+                ...state,
+                articleTextEdit: action.text
+            }
+        }
+        case EDIT_ARTICLE_SUCCESS: {
+            return {
+                ...state,
+                articleTitleEdit: undefined,
+                articleTextEdit: undefined,
+                articleOnEdit: undefined
+            }
         }
         default:
             return state

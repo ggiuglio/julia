@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { setArticleOnEdit, deleteArticleConfirm } from '../store/actions/actionsCreator';
+import { setArticleOnEdit, deleteArticleConfirm, confirmArticleEdit } from '../store/actions/actionsCreator';
 import { getArticleOnEdit } from '../store/selectors/selector';
 import editIcon from '../assets/images/edit.png';
 import deleteIcon from '../assets/images/delete.png';
-import xIcon from '../assets/images/x.png';
+import okIcon from '../assets/images/ok2.png';
+import cancelIcon from '../assets/images/cancel2.png';
 
-const ArticleActions = styled.div``;
+const ArticleActions = styled.div`
+  width: 100px;
+`;
 const Icon = styled.img`
-  z-index: 100;
   width: 20px;
   padding: 5px;
   :hover {
@@ -17,25 +19,45 @@ const Icon = styled.img`
   }
 `;
 
-const ActionControls = ({ article, setOnEdit, articleOnEdit, deleteArticle }) => {
+const ActionControls = ({ article, setOnEdit, articleOnEdit, deleteArticle, saveArticle }) => {
 
   const deleteArticleEvent = (event) => {
     event.stopPropagation();
-    console.log('delete article', event);
     deleteArticle(article.firebaseId);
   }
 
   const editArticleEvent = (event) => {
     event.stopPropagation();
-    console.log('edit article', article);
     setOnEdit(article.firebaseId);
   }
 
+  const cancelArticleEvent = (event) => {
+    event.stopPropagation();
+    setOnEdit(undefined);
+  }
+  
+  const saveArticleEvent = (event) => {
+    event.stopPropagation();
+    saveArticle(article.firebaseId);
+  }
+
   return <ArticleActions>
-    <Icon src={editIcon} onClick={(e) => editArticleEvent(e)}></Icon>
-    <Icon src={deleteIcon} onClick={(e) => deleteArticleEvent(e)}></Icon>
+    {
+      articleOnEdit !== article.firebaseId ?
+        <div>
+          <Icon src={editIcon} onClick={(e) => editArticleEvent(e)}></Icon>
+          <Icon src={deleteIcon} onClick={(e) => deleteArticleEvent(e)}></Icon>
+        </div>
+        :
+        <div>
+          <Icon src={okIcon} onClick={(e) => saveArticleEvent(e)}></Icon>
+          <Icon src={cancelIcon} onClick={(e) => cancelArticleEvent(e)}></Icon>
+        </div>
+    }
+
   </ArticleActions>
 }
+
 const mapStateToProps = state => {
   return {
     articleOnEdit: getArticleOnEdit(state)
@@ -45,7 +67,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setOnEdit: (articleId) => dispatch(setArticleOnEdit(articleId)),
-    deleteArticle: (articleId) => dispatch(deleteArticleConfirm(articleId))
+    deleteArticle: (articleId) => dispatch(deleteArticleConfirm(articleId)),
+    saveArticle: (articleId) => dispatch(confirmArticleEdit(articleId))
   }
 };
 

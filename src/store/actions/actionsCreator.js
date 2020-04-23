@@ -5,7 +5,10 @@ import {
   SET_USER,
   LOAD_ARTICLES,
   SET_ARTICLE_ON_EDIT,
-  DELETE_ARTICLE_SUCCESS
+  DELETE_ARTICLE_SUCCESS,
+  EDIT_ARTICLE_TITLE,
+  EDIT_ARTICLE_TEXT,
+  EDIT_ARTICLE_SUCCESS,
 } from './actionsTypes.js'
 import { FirebaseInstance } from '../../App';
 import { history } from '../../App';
@@ -84,8 +87,40 @@ export const deleteArticleConfirm = (articleId) => {
         type: DELETE_ARTICLE_SUCCESS
       })
     })
-    .catch((r) => {
-      console.log('error', r);
+      .catch((r) => {
+        console.log('error', r);
+      });
+  }
+}
+
+export const editArticleTitle = (title) => {
+  return dispatch => {
+    dispatch({
+      type: EDIT_ARTICLE_TITLE,
+      title: title
     });
   }
+}
+
+export const editArticleText = (text) => {
+  return dispatch => {
+    dispatch({
+      type: EDIT_ARTICLE_TEXT,
+      text: text
+    });
+  }
+}
+
+export const confirmArticleEdit = (articleFirebaseId) => {
+  return (dispatch, getState) => {
+    const article = getState().articles.find(article => article.firebaseId === articleFirebaseId);
+    article.title = getState().articleTitleEdit ? getState().articleTitleEdit : article.title;
+    article.text = getState().articleTextEdit ? getState().articleTextEdit : article.text;
+
+    return FirebaseInstance.articles.child(article.firebaseId).update(article).then(() => {
+      return dispatch({
+        type: EDIT_ARTICLE_SUCCESS
+      })
+    });
+  };
 }

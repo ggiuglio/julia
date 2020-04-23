@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { loadArticlesAction } from '../store/actions/actionsCreator';
 import { getArticles, getArticleOnEdit, getUser } from '../store/selectors/selector';
 import ActionControls from './actionControls';
-import Title from './title';
-import Text from './text';
+import ArticleTitle from './title';
+import ArticelText from './text';
 import defaultImg from '../assets/images/acet.jpg';
 
 const slideIn = keyframes`
@@ -111,8 +111,8 @@ const Articles = ({ articles, articleOnEdit, loadArticles, user }) => {
             <ArticleBody>
               <ArticleImage src={defaultImg} />
               <ArticleContent>
-                <Title article={article}></Title>
-                <Text article={article}></Text>
+                <ArticleTitle article={article}></ArticleTitle>
+                <ArticelText article={article}></ArticelText>
               </ArticleContent>
               <ArticleActions>
                 {user ? <ActionControls article={article}></ActionControls> : ''}
