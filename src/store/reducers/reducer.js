@@ -8,7 +8,8 @@ import {
     EDIT_ARTICLE_TITLE,
     EDIT_ARTICLE_TEXT,
     DELETE_ARTICLE_SUCCESS,
-    EDIT_ARTICLE_SUCCESS
+    EDIT_ARTICLE_SUCCESS,
+    CANCEL_ARTICLE_EDIT
 } from '../actions/actionsTypes'
 
 export const INITIAL_STATE = {
@@ -48,7 +49,7 @@ const Reducer = (state = INITIAL_STATE, action) => {
         case LOAD_ARTICLES: {
             let articles = [];
             if (action.articles) {
-                Object.keys(action.articles).forEach( k => {
+                Object.keys(action.articles).forEach(k => {
                     action.articles[k].firebaseId = k;
                     articles.push(action.articles[k])
                 });
@@ -82,6 +83,14 @@ const Reducer = (state = INITIAL_STATE, action) => {
             }
         }
         case EDIT_ARTICLE_SUCCESS: {
+            return {
+                ...state,
+                articleTitleEdit: undefined,
+                articleTextEdit: undefined,
+                articleOnEdit: undefined
+            }
+        }
+        case CANCEL_ARTICLE_EDIT: {
             return {
                 ...state,
                 articleTitleEdit: undefined,

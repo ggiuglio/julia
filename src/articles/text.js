@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { getArticleOnEdit } from '../store/selectors/selector';
+import { getArticleOnEdit, getArticleOnEditText } from '../store/selectors/selector';
 import { editArticleText } from '../store/actions/actionsCreator';
 
 const TextContainer = styled.div`
@@ -18,15 +18,15 @@ const TextEdit = styled.textarea`
   padding: 5px;
 `;
 
-const ArticelText = ({ article, articleOnEdit, editText }) => {
+const ArticelText = ({ article, articleOnEdit, editText, textOnEdit }) => {
   const [text, setText] = useState(undefined);
   let timeout = undefined;
 
   useEffect(() => {
-    if (text === undefined) {
+    if (text === undefined || textOnEdit === undefined)  {
       setText(article.text);
     }
-  }, [text, article.text]);
+  }, [text, article.text, textOnEdit]);
 
   const changeText = (textInput) => {
     setText(textInput);
@@ -38,14 +38,16 @@ const ArticelText = ({ article, articleOnEdit, editText }) => {
 
   return <TextContainer>
     {article.firebaseId !== articleOnEdit ?
-      <TextFixed>{text}</TextFixed> :
+      <TextFixed>{article.text}</TextFixed> :
       <TextEdit value={text} onChange={(e) => changeText(e.target.value)}></TextEdit>
     }
   </TextContainer>
 }
 const mapStateToProps = state => {
   return {
-    articleOnEdit: getArticleOnEdit(state)
+    articleOnEdit: getArticleOnEdit(state),
+    textOnEdit: getArticleOnEditText(state)
+
   }
 };
 

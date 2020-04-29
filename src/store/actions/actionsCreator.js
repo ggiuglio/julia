@@ -9,6 +9,7 @@ import {
   EDIT_ARTICLE_TITLE,
   EDIT_ARTICLE_TEXT,
   EDIT_ARTICLE_SUCCESS,
+  CANCEL_ARTICLE_EDIT
 } from './actionsTypes.js'
 import { FirebaseInstance } from '../../App';
 import { history } from '../../App';
@@ -123,4 +124,12 @@ export const confirmArticleEdit = (articleFirebaseId) => {
       })
     });
   };
+}
+
+export const cancelArticleEdit = () => {
+  return dispatch => {
+    dispatch({
+      type: CANCEL_ARTICLE_EDIT,
+    });
+  }
 }

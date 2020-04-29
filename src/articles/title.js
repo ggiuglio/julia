@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
 import { editArticleTitle } from '../store/actions/actionsCreator';
-import { getArticleOnEdit } from '../store/selectors/selector';
+import { getArticleOnEdit, getArticleOnEditTitle } from '../store/selectors/selector';
 
 const TitleContainer = styled.div`
   margin-right: 10px;
@@ -16,15 +16,18 @@ const TitleEdit = styled.input`
   padding: 5px;
 `;
 
-const ArticleTitle = ({ article, articleOnEdit, editTitle }) => {
+const ArticleTitle = ({ article, articleOnEdit, editTitle, titleOnEdit }) => {
   const [title, setTitle] = useState(undefined);
   let timeout = undefined;
 
   useEffect(() => {
-    if (title === undefined) {
+    if (title === undefined || !titleOnEdit) {
       setTitle(article.title);
     }
-  },  [title, article.title]);
+    if(articleOnEdit === article.firebaseId && titleOnEdit !== title ) {
+      setTitle(titleOnEdit)
+    }
+  },  [title, article.title, titleOnEdit]);
 
   const changeTitle = (titleInput) => {
     setTitle(titleInput);
@@ -36,14 +39,15 @@ const ArticleTitle = ({ article, articleOnEdit, editTitle }) => {
 
   return <TitleContainer>
     {article.firebaseId !== articleOnEdit ?
-      <TitleFixed>{title}</TitleFixed> :
+      <TitleFixed>{article.title}</TitleFixed> :
       <TitleEdit value={title} onChange={(e) => changeTitle(e.target.value)}></TitleEdit>
     }
   </TitleContainer>
 }
 const mapStateToProps = state => {
   return {
-    articleOnEdit: getArticleOnEdit(state)
+    articleOnEdit: getArticleOnEdit(state),
+    titleOnEdit: getArticleOnEditTitle(state)
   }
 };
 

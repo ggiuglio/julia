@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { setArticleOnEdit, deleteArticleConfirm, confirmArticleEdit } from '../store/actions/actionsCreator';
+import { setArticleOnEdit, deleteArticleConfirm, confirmArticleEdit, cancelArticleEdit } from '../store/actions/actionsCreator';
 import { getArticleOnEdit } from '../store/selectors/selector';
 import editIcon from '../assets/images/edit.png';
 import deleteIcon from '../assets/images/delete.png';
@@ -19,7 +19,7 @@ const Icon = styled.img`
   }
 `;
 
-const ActionControls = ({ article, setOnEdit, articleOnEdit, deleteArticle, saveArticle }) => {
+const ActionControls = ({ article, setOnEdit, articleOnEdit, deleteArticle, saveArticle, cancelEdit }) => {
 
   const deleteArticleEvent = (event) => {
     event.stopPropagation();
@@ -33,7 +33,7 @@ const ActionControls = ({ article, setOnEdit, articleOnEdit, deleteArticle, save
 
   const cancelArticleEvent = (event) => {
     event.stopPropagation();
-    setOnEdit(undefined);
+    cancelEdit();
   }
   
   const saveArticleEvent = (event) => {
@@ -68,7 +68,8 @@ const mapDispatchToProps = dispatch => {
   return {
     setOnEdit: (articleId) => dispatch(setArticleOnEdit(articleId)),
     deleteArticle: (articleId) => dispatch(deleteArticleConfirm(articleId)),
-    saveArticle: (articleId) => dispatch(confirmArticleEdit(articleId))
+    saveArticle: (articleId) => dispatch(confirmArticleEdit(articleId)),
+    cancelEdit: () => dispatch(cancelArticleEdit()),
   }
 };
 
