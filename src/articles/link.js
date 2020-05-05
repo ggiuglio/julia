@@ -43,7 +43,7 @@ const ArticleLink = ({ article, articleOnEdit, editLink, linkOnEdit }) => {
     if (timeout) {
       clearInterval(timeout);
     }
-    timeout = setInterval(editLink({ linkName: linkName, linkName: linkNameInput }, 200));
+    timeout = setInterval(editLink({ linkName: linkNameInput, link: link }, 200));
   }
 
   const openArticle = () => {
