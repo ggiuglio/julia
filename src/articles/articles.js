@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { connect } from "react-redux";
 import { loadArticlesAction } from '../store/actions/actionsCreator';
-import { getArticles, getArticleOnEdit, getUser } from '../store/selectors/selector';
+import { getArticles, getUser } from '../store/selectors/selector';
 import ActionControls from './actionControls';
 import ArticleTitle from './title';
 import ArticelText from './text';
@@ -80,16 +80,8 @@ const ArticleContent = styled.div`
 `;
 
 const ArticleActions = styled.div``;
-const Icon = styled.img`
-  z-index: 100;
-  width: 20px;
-  padding: 5px;
-  :hover {
-    border: 1px solid; 
-  }
-`;
 
-const Articles = ({ articles, articleOnEdit, loadArticles, user }) => {
+const Articles = ({ articles, loadArticles, user }) => {
   useEffect(() => {
     if (!articles) {
       loadArticles();
@@ -126,7 +118,6 @@ const Articles = ({ articles, articleOnEdit, loadArticles, user }) => {
 const mapStateToProps = state => {
   return {
     articles: getArticles(state),
-    articleOnEdit: getArticleOnEdit(state),
     user: getUser(state)
   }
 };
