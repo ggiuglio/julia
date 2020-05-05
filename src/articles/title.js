@@ -21,13 +21,10 @@ const ArticleTitle = ({ article, articleOnEdit, editTitle, titleOnEdit }) => {
   let timeout = undefined;
 
   useEffect(() => {
-    if (title === undefined || !titleOnEdit) {
+    if (!title || !titleOnEdit) {
       setTitle(article.title);
     }
-    if(articleOnEdit === article.firebaseId && titleOnEdit !== title ) {
-      setTitle(titleOnEdit)
-    }
-  },  [title, article.title, titleOnEdit]);
+  },  [title, article.title, article.firebaseId, articleOnEdit, titleOnEdit]);
 
   const changeTitle = (titleInput) => {
     setTitle(titleInput);

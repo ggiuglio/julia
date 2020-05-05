@@ -7,6 +7,7 @@ import {
     SET_ARTICLE_ON_EDIT,
     EDIT_ARTICLE_TITLE,
     EDIT_ARTICLE_TEXT,
+    EDIT_ARTICLE_LINK,
     DELETE_ARTICLE_SUCCESS,
     EDIT_ARTICLE_SUCCESS,
     CANCEL_ARTICLE_EDIT
@@ -19,7 +20,8 @@ export const INITIAL_STATE = {
     articles: undefined,
     articleOnEdit: undefined,
     articleTitleEdit: undefined,
-    articleTextEdit: undefined
+    articleTextEdit: undefined,
+    articleLinkEdit: undefined
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -65,6 +67,7 @@ const Reducer = (state = INITIAL_STATE, action) => {
                 articleOnEdit: action.articleId,
                 articleTitleEdit: undefined,
                 articleTextEdit: undefined,
+                articleLinkOnEdit: undefined,
             }
         }
         case DELETE_ARTICLE_SUCCESS: {
@@ -82,12 +85,19 @@ const Reducer = (state = INITIAL_STATE, action) => {
                 articleTextEdit: action.text
             }
         }
+        case EDIT_ARTICLE_LINK: {
+            return {
+                ...state,
+                articleLinkEdit: action.link
+            }
+        }
         case EDIT_ARTICLE_SUCCESS: {
             return {
                 ...state,
                 articleTitleEdit: undefined,
                 articleTextEdit: undefined,
-                articleOnEdit: undefined
+                articleLinkEdit: undefined,
+                articleOnEdit: undefined,
             }
         }
         case CANCEL_ARTICLE_EDIT: {
@@ -95,7 +105,8 @@ const Reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 articleTitleEdit: undefined,
                 articleTextEdit: undefined,
-                articleOnEdit: undefined
+                articleLinkEdit: undefined,
+                articleOnEdit: undefined,
             }
         }
         default:

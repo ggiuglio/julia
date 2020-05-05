@@ -6,6 +6,7 @@ import { getArticles, getArticleOnEdit, getUser } from '../store/selectors/selec
 import ActionControls from './actionControls';
 import ArticleTitle from './title';
 import ArticelText from './text';
+import ArticleLink from './link';
 import defaultImg from '../assets/images/acet.jpg';
 
 const slideIn = keyframes`
@@ -95,10 +96,6 @@ const Articles = ({ articles, articleOnEdit, loadArticles, user }) => {
     }
   });
 
-  const openArticle = (link) => {
-    //window.open(link);
-  };
-
   return <Container>
     <MainContent>
       <Introduction>
@@ -107,12 +104,13 @@ const Articles = ({ articles, articleOnEdit, loadArticles, user }) => {
       </Introduction>
       {
         articles ? articles.map(article =>
-          <Article key={article.id} onClick={() => openArticle(article.link)}>
+          <Article key={article.id}>
             <ArticleBody>
               <ArticleImage src={defaultImg} />
               <ArticleContent>
                 <ArticleTitle article={article}></ArticleTitle>
                 <ArticelText article={article}></ArticelText>
+                <ArticleLink article={article}></ArticleLink>
               </ArticleContent>
               <ArticleActions>
                 {user ? <ActionControls article={article}></ActionControls> : ''}

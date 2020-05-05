@@ -23,10 +23,10 @@ const ArticelText = ({ article, articleOnEdit, editText, textOnEdit }) => {
   let timeout = undefined;
 
   useEffect(() => {
-    if (text === undefined || textOnEdit === undefined)  {
+    if (!text || !textOnEdit)  {
       setText(article.text);
     }
-  }, [text, article.text, textOnEdit]);
+  }, [text, article.text, article.firebaseId, textOnEdit]);
 
   const changeText = (textInput) => {
     setText(textInput);

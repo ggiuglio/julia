@@ -8,6 +8,7 @@ import {
   DELETE_ARTICLE_SUCCESS,
   EDIT_ARTICLE_TITLE,
   EDIT_ARTICLE_TEXT,
+  EDIT_ARTICLE_LINK,
   EDIT_ARTICLE_SUCCESS,
   CANCEL_ARTICLE_EDIT
 } from './actionsTypes.js'
@@ -103,6 +104,15 @@ export const editArticleTitle = (title) => {
   }
 }
 
+export const editArticleLink = (link) => {
+  return dispatch => {
+    dispatch({
+      type: EDIT_ARTICLE_LINK,
+      link: link
+    });
+  }
+}
+
 export const editArticleText = (text) => {
   return dispatch => {
     dispatch({
@@ -117,6 +127,10 @@ export const confirmArticleEdit = (articleFirebaseId) => {
     const article = getState().articles.find(article => article.firebaseId === articleFirebaseId);
     article.title = getState().articleTitleEdit ? getState().articleTitleEdit : article.title;
     article.text = getState().articleTextEdit ? getState().articleTextEdit : article.text;
+    article.linkName = getState().articleLinkEdit && getState().articleLinkEdit.linkName ? 
+      getState().articleLinkEdit.linkName : article.linkName;
+    article.link = getState().articleLinkEdit && getState().articleLinkEdit.link ? 
+      getState().articleLinkEdit.link : article.link;
 
     return FirebaseInstance.articles.child(article.firebaseId).update(article).then(() => {
       return dispatch({
