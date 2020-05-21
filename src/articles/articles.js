@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { loadArticlesAction } from '../store/actions/actionsCreator';
 import { getArticles, getUser } from '../store/selectors/selector';
 import ActionControls from './actionControls';
-import ArticleTitle from './title';
-import ArticelText from './text';
-import ArticleLink from './link';
-import defaultImg from '../assets/images/acet.jpg';
+import ArticleTitle from './articleTitle';
+import ArticleText from './articleText';
+import ArticleLink from './articleLink';
+import NewArticle from './newArticle';
 
 const slideIn = keyframes`
   from {
@@ -98,10 +98,10 @@ const Articles = ({ articles, loadArticles, user }) => {
         articles ? articles.map(article =>
           <Article key={article.id}>
             <ArticleBody>
-              <ArticleImage src={defaultImg} />
+              <ArticleImage src={article.img} />
               <ArticleContent>
                 <ArticleTitle article={article}></ArticleTitle>
-                <ArticelText article={article}></ArticelText>
+                <ArticleText article={article}></ArticleText>
                 <ArticleLink article={article}></ArticleLink>
               </ArticleContent>
               <ArticleActions>
@@ -111,6 +111,7 @@ const Articles = ({ articles, loadArticles, user }) => {
           </Article>
         ) : ''
       }
+      <NewArticle></NewArticle>
     </MainContent>
   </Container>
 }

@@ -19,9 +19,15 @@ export const loadArticlesAction = () => {
   return dispatch => {
     return FirebaseInstance.articles.orderByChild('id').on('value', snapshot => {
       const art = JSON.parse(JSON.stringify(snapshot.val()));
-      return dispatch({
-        type: LOAD_ARTICLES,
-        articles: art
+      const urlRef = FirebaseInstance.storageRef.child("article-images/acet.jpg")
+      urlRef.getDownloadURL().then(url => {
+        Object.values(art).map(a => {
+          a.img = url;
+        });
+        return dispatch({
+          type: LOAD_ARTICLES,
+          articles: art
+        });
       });
     });
   }
@@ -127,9 +133,9 @@ export const confirmArticleEdit = (articleFirebaseId) => {
     const article = getState().articles.find(article => article.firebaseId === articleFirebaseId);
     article.title = getState().articleTitleEdit ? getState().articleTitleEdit : article.title;
     article.text = getState().articleTextEdit ? getState().articleTextEdit : article.text;
-    article.linkName = getState().articleLinkEdit && getState().articleLinkEdit.linkName ? 
+    article.linkName = getState().articleLinkEdit && getState().articleLinkEdit.linkName ?
       getState().articleLinkEdit.linkName : article.linkName;
-    article.link = getState().articleLinkEdit && getState().articleLinkEdit.link ? 
+    article.link = getState().articleLinkEdit && getState().articleLinkEdit.link ?
       getState().articleLinkEdit.link : article.link;
 
     return FirebaseInstance.articles.child(article.firebaseId).update(article).then(() => {

@@ -8,6 +8,8 @@ class Firebase {
     app.initializeApp(FirebaseConfig);
     this.articles = app.database().ref('articles');
     this.provider = new firebase.auth.GoogleAuthProvider()
+    this.storageRef = app.storage().ref();
+
 
     this.auth = app.auth();
   }

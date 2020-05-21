@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { connect } from "react-redux";
-import { editArticleTitle } from '../store/actions/actionsCreator';
-import { getArticleOnEdit, getArticleOnEditTitle } from '../store/selectors/selector';
 
 const TitleContainer = styled.div`
   margin-right: 10px;
@@ -16,7 +13,7 @@ const TitleEdit = styled.input`
   padding: 5px;
 `;
 
-const ArticleTitle = ({ article, articleOnEdit, editTitle, titleOnEdit }) => {
+const EditableTitle = ({ article, articleOnEdit, editTitle, titleOnEdit }) => {
   const [title, setTitle] = useState(undefined);
   let timeout = undefined;
 
@@ -41,17 +38,5 @@ const ArticleTitle = ({ article, articleOnEdit, editTitle, titleOnEdit }) => {
     }
   </TitleContainer>
 }
-const mapStateToProps = state => {
-  return {
-    articleOnEdit: getArticleOnEdit(state),
-    titleOnEdit: getArticleOnEditTitle(state)
-  }
-};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    editTitle: (title) => dispatch(editArticleTitle(title))
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleTitle);
+export default EditableTitle;

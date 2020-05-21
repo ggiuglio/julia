@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { connect } from "react-redux";
-import { editArticleLink } from '../store/actions/actionsCreator';
-import { getArticleOnEdit, getArticleOnEditLink } from '../store/selectors/selector';
 
 const TitleContainer = styled.div`
   margin-right: 10px;
@@ -17,7 +14,7 @@ const LinkEdit = styled.input`
   margin-bottom: 5px;
 `;
 
-const ArticleLink = ({ article, articleOnEdit, editLink, linkOnEdit }) => {
+const EditableLink = ({ article, articleOnEdit, editLink, linkOnEdit }) => {
   const [link, setLink] = useState(undefined);
   const [linkName, setLinkName] = useState(undefined);
 
@@ -60,17 +57,5 @@ const ArticleLink = ({ article, articleOnEdit, editLink, linkOnEdit }) => {
     }
   </TitleContainer>
 }
-const mapStateToProps = state => {
-  return {
-    articleOnEdit: getArticleOnEdit(state),
-    linkOnEdit: getArticleOnEditLink(state)
-  }
-};
 
-const mapDispatchToProps = dispatch => {
-  return {
-    editLink: (link) => dispatch(editArticleLink(link))
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleLink);
+export default EditableLink;

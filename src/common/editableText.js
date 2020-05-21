@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { connect } from "react-redux";
-import { getArticleOnEdit, getArticleOnEditText } from '../store/selectors/selector';
-import { editArticleText } from '../store/actions/actionsCreator';
 
 const TextContainer = styled.div`
   margin-top: 20px;
@@ -18,7 +15,7 @@ const TextEdit = styled.textarea`
   padding: 5px;
 `;
 
-const ArticelText = ({ article, articleOnEdit, editText, textOnEdit }) => {
+const EditableText = ({ article, articleOnEdit, editText, textOnEdit }) => {
   const [text, setText] = useState(undefined);
   let timeout = undefined;
 
@@ -43,18 +40,5 @@ const ArticelText = ({ article, articleOnEdit, editText, textOnEdit }) => {
     }
   </TextContainer>
 }
-const mapStateToProps = state => {
-  return {
-    articleOnEdit: getArticleOnEdit(state),
-    textOnEdit: getArticleOnEditText(state)
 
-  }
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    editText: (text) => dispatch(editArticleText(text))
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ArticelText);
+export default EditableText
