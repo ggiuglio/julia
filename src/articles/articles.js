@@ -7,7 +7,7 @@ import ActionControls from './actionControls';
 import ArticleTitle from './articleTitle';
 import ArticleText from './articleText';
 import ArticleLink from './articleLink';
-import NewArticle from './newArticle';
+import NewArticle from '../newArticle/newArticle';
 
 const slideIn = keyframes`
   from {
@@ -60,6 +60,7 @@ const Article = styled.div`
 `;
 const ArticleImage = styled.img`
   width: 100px;
+  margin-right: 10px;
     @media (min-width: 600px) {
       width: 20vw;
     }
@@ -96,7 +97,7 @@ const Articles = ({ articles, loadArticles, user }) => {
       </Introduction>
       {
         articles ? articles.map(article =>
-          <Article key={article.id}>
+          <Article key={article.firebareId}>
             <ArticleBody>
               <ArticleImage src={article.img} />
               <ArticleContent>

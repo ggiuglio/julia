@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const TextContainer = styled.div`
@@ -15,15 +15,9 @@ const TextEdit = styled.textarea`
   padding: 5px;
 `;
 
-const EditableText = ({ article, articleOnEdit, editText, textOnEdit }) => {
-  const [text, setText] = useState(undefined);
+const EditableText = ({ article, articleOnEdit, editText, textOnEdit, placeholder }) => {
+  const [text, setText] = useState(article.text);
   let timeout = undefined;
-
-  useEffect(() => {
-    if (!text || !textOnEdit)  {
-      setText(article.text);
-    }
-  }, [text, article.text, article.firebaseId, textOnEdit]);
 
   const changeText = (textInput) => {
     setText(textInput);
@@ -36,7 +30,7 @@ const EditableText = ({ article, articleOnEdit, editText, textOnEdit }) => {
   return <TextContainer>
     {article.firebaseId !== articleOnEdit ?
       <TextFixed>{article.text}</TextFixed> :
-      <TextEdit value={text} onChange={(e) => changeText(e.target.value)}></TextEdit>
+      <TextEdit value={text} placeholder={placeholder} onChange={(e) => changeText(e.target.value)}></TextEdit>
     }
   </TextContainer>
 }

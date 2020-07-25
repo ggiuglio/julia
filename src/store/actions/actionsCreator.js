@@ -10,7 +10,12 @@ import {
   EDIT_ARTICLE_TEXT,
   EDIT_ARTICLE_LINK,
   EDIT_ARTICLE_SUCCESS,
-  CANCEL_ARTICLE_EDIT
+  CANCEL_ARTICLE_EDIT,
+  EDIT_NEW_ARTICLE_TITLE,
+  EDIT_NEW_ARTICLE_TEXT,
+  EDIT_NEW_ARTICLE_LINK,
+  RESET_NEW_ARTICLE,
+  OPEN_NEW_ARTICLE_FORM
 } from './actionsTypes.js'
 import { FirebaseInstance } from '../../App';
 import { history } from '../../App';
@@ -150,6 +155,73 @@ export const cancelArticleEdit = () => {
   return dispatch => {
     dispatch({
       type: CANCEL_ARTICLE_EDIT,
+    });
+  }
+}
+
+export const editNewArticleTitle = (title) => {
+  return dispatch => {
+    dispatch({
+      type: EDIT_NEW_ARTICLE_TITLE,
+      title: title
+    });
+  }
+}
+
+export const editNewArticleLink = (link) => {
+  return dispatch => {
+    dispatch({
+      type: EDIT_NEW_ARTICLE_LINK,
+      link: link
+    });
+  }
+}
+
+export const editNewArticleText = (text) => {
+  return dispatch => {
+    dispatch({
+      type: EDIT_NEW_ARTICLE_TEXT,
+      text: text
+    });
+  }
+}
+
+export const resetNewArticle = () => {
+  return dispatch => {
+    dispatch({
+      type: RESET_NEW_ARTICLE,
+    });
+  }
+}
+
+export const createArticle = () => {
+  return (dispatch, getState) => {
+
+    const articleLink = getState().newArticleLink || {
+      link: '',
+      linkName: ''
+    };
+    const article = {
+      title: getState().newArticleTitle || '',
+      text: getState().newArticleText || '',
+      link: articleLink.link,
+      linkName: articleLink.linkName
+    };
+
+    console.log(article);
+
+    return FirebaseInstance.articles.push(article).then(() => {
+      dispatch({
+        type: RESET_NEW_ARTICLE,
+      });
+    });
+  };
+}
+
+export const openNewArticleForm = () => {
+  return dispatch => {
+    dispatch({
+      type: OPEN_NEW_ARTICLE_FORM,
     });
   }
 }

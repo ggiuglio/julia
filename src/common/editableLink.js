@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const TitleContainer = styled.div`
@@ -14,18 +14,11 @@ const LinkEdit = styled.input`
   margin-bottom: 5px;
 `;
 
-const EditableLink = ({ article, articleOnEdit, editLink, linkOnEdit }) => {
-  const [link, setLink] = useState(undefined);
-  const [linkName, setLinkName] = useState(undefined);
+const EditableLink = ({ article, articleOnEdit, editLink, linkOnEdit, linkPlaceholder, linkNamePlaceholder }) => {
+  const [link, setLink] = useState(article.link);
+  const [linkName, setLinkName] = useState(article.linkName);
 
   let timeout = undefined;
-
-  useEffect(() => {
-    if (!link || !linkName || !linkOnEdit) {
-      setLink(article.link);
-      setLinkName(article.linkName);
-    }
-  }, [link, linkName, article.link, article.linkName, articleOnEdit, linkOnEdit]);
 
   const changeLink = (linkInput) => {
     setLink(linkInput);
@@ -51,8 +44,8 @@ const EditableLink = ({ article, articleOnEdit, editLink, linkOnEdit }) => {
     {article.firebaseId !== articleOnEdit ?
       <LinkFixed onClick={() => openArticle()}>{article.linkName}</LinkFixed> :
       <div>
-        <LinkEdit value={linkName} onChange={(e) => changeLinkName(e.target.value)}></LinkEdit>
-        <LinkEdit value={link} onChange={(e) => changeLink(e.target.value)}></LinkEdit>
+        <LinkEdit value={linkName} placeholder={linkNamePlaceholder} onChange={(e) => changeLinkName(e.target.value)}></LinkEdit>
+        <LinkEdit value={link} placeholder={linkPlaceholder} onChange={(e) => changeLink(e.target.value)}></LinkEdit>
       </div>
     }
   </TitleContainer>

@@ -6,5 +6,7 @@ export const getArticleOnEdit = state => state.articleOnEdit;
 export const getArticleOnEditTitle = state => state.articleTitleEdit;
 export const getArticleOnEditText = state => state.articleTextEdit;
 export const getArticleOnEditLink = state => state.articleLinkEdit;
-
-
+export const getNewArticleTitle = state => state.newArticleTitle;
+export const getNewArticleText = state => state.newArticleText;
+export const getNewArticleLink = state => state.newArticleLink;
+export const getNewArticleFormStatus = state => state.showNewArticleForm;

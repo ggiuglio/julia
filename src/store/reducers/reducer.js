@@ -10,7 +10,12 @@ import {
     EDIT_ARTICLE_LINK,
     DELETE_ARTICLE_SUCCESS,
     EDIT_ARTICLE_SUCCESS,
-    CANCEL_ARTICLE_EDIT
+    CANCEL_ARTICLE_EDIT,
+    EDIT_NEW_ARTICLE_TITLE,
+    EDIT_NEW_ARTICLE_TEXT,
+    EDIT_NEW_ARTICLE_LINK,
+    RESET_NEW_ARTICLE,
+    OPEN_NEW_ARTICLE_FORM
 } from '../actions/actionsTypes'
 
 export const INITIAL_STATE = {
@@ -21,7 +26,11 @@ export const INITIAL_STATE = {
     articleOnEdit: undefined,
     articleTitleEdit: undefined,
     articleTextEdit: undefined,
-    articleLinkEdit: undefined
+    articleLinkEdit: undefined,
+    showNewArticleForm: false,
+    newArticleTitle: undefined,
+    newArticleText: undefined,
+    newArticleLink: undefined
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -107,6 +116,39 @@ const Reducer = (state = INITIAL_STATE, action) => {
                 articleTextEdit: undefined,
                 articleLinkEdit: undefined,
                 articleOnEdit: undefined,
+            }
+        }
+        case EDIT_NEW_ARTICLE_TITLE: {
+            return {
+                ...state,
+                newArticleTitle: action.title,
+            }
+        }
+        case EDIT_NEW_ARTICLE_TEXT: {
+            return {
+                ...state,
+                newArticleText: action.text,
+            }
+        }
+        case EDIT_NEW_ARTICLE_LINK: {
+            return {
+                ...state,
+                newArticleLink: action.link,
+            }
+        }
+        case OPEN_NEW_ARTICLE_FORM: {
+            return {
+                ...state,
+                showNewArticleForm: true
+            }
+        }
+        case RESET_NEW_ARTICLE: {
+            return  {
+                ...state,
+                showNewArticleForm: false,
+                newArticleTitle: undefined,
+                newArticleText: undefined,
+                newArticleLink: undefined,
             }
         }
         default:

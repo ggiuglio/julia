@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const TitleContainer = styled.div`
@@ -13,15 +13,9 @@ const TitleEdit = styled.input`
   padding: 5px;
 `;
 
-const EditableTitle = ({ article, articleOnEdit, editTitle, titleOnEdit }) => {
-  const [title, setTitle] = useState(undefined);
+const EditableTitle = ({ article, articleOnEdit, editTitle, titleOnEdit, placeHolder }) => {
+  const [title, setTitle] = useState(article.title);
   let timeout = undefined;
-
-  useEffect(() => {
-    if (!title || !titleOnEdit) {
-      setTitle(article.title);
-    }
-  },  [title, article.title, article.firebaseId, articleOnEdit, titleOnEdit]);
 
   const changeTitle = (titleInput) => {
     setTitle(titleInput);
@@ -34,7 +28,7 @@ const EditableTitle = ({ article, articleOnEdit, editTitle, titleOnEdit }) => {
   return <TitleContainer>
     {article.firebaseId !== articleOnEdit ?
       <TitleFixed>{article.title}</TitleFixed> :
-      <TitleEdit value={title} onChange={(e) => changeTitle(e.target.value)}></TitleEdit>
+      <TitleEdit value={title} placeholder={placeHolder} onChange={(e) => changeTitle(e.target.value)}></TitleEdit>
     }
   </TitleContainer>
 }
