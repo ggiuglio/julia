@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const TextContainer = styled.div`
-  margin-top: 20px;
-  margin-right: 10px;
+ margin: 10px 0;
 `;
 const TextFixed = styled.div`
   width: 100%;

@@ -43,41 +43,73 @@ const MainContent = styled.div`
   padding: 0 5vw;
 `;
 const Introduction = styled.div`
-  padding-top: 20px;
+  padding: 20px 10px;
   font-size: 16px;
   text-align: justify;
   border-bottom: 1px solid #cccccc;
-  padding-bottom: 20px;
 `;
 const Article = styled.div`
   border-bottom: 1px solid #cccccc;
-  padding: 15px 5px;
-  cursor: pointer;
-  width: 100%;
+  padding: 20px;
+  width: calc(100vw - 40px);
+  box-sizing: border-box;
   :last-child {
     margin-bottom: 20px;
   }
+  @media (min-width: 600px) {
+    width: 100%;
+  }
 `;
 const ArticleImage = styled.img`
-  width: 100px;
-  margin-right: 10px;
-    @media (min-width: 600px) {
-      width: 20vw;
-    }
+  max-height: 150px;
+  max-width: 80vw;
+  @media (min-width: 600px) {
+   width: 250px;
+   max-height: 250px;
+  }
+`;
+const ArticleImageContainer = styled.div`
+  text-align: center;
+  margin-bottom: 10px;
+  width: 80vw;
+  @media (min-width: 600px) {
+    max-height: 200px;
+    width: 250px;
+  }
 `;
 const ArticleBody = styled.div`
-  display: inline-flex;
   width: 100%;
+  @media (min-width: 600px) {
+    display: inline-flex;
+  }
 `;
 const ArticleContent = styled.div`
-  align-items: top;
+  @media (min-width: 600px) {
+    padding-right: 20px;
+    align-items: top;
   font-size: 14px;
   flex-grow: 1;
   text-align: justify;
   box-sizing: border-box;
-  @media (min-width: 600px) {
-    padding-right: 20px;
   }
+`;
+const ArticleTitleContainer = styled.div`
+  border-bottom: 1px solid black;
+`;
+const ArticleTextContainer = styled.div`
+  background-color: #f5f5f5;
+  min-height: 100px;
+  padding: 5px;
+  margin: 7px 0;
+  @media (min-width: 600px) {
+    min-height: 170px;
+    margin: 12px 0;
+  }
+`;
+const ArticleLinkContainer = styled.div`
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 const ArticleActions = styled.div``;
@@ -99,11 +131,19 @@ const Articles = ({ articles, loadArticles, user }) => {
         articles ? articles.map(article =>
           <Article key={article.firebareId}>
             <ArticleBody>
-              <ArticleImage src={article.img} />
+              <ArticleImageContainer>
+                <ArticleImage src={article.img} />
+              </ArticleImageContainer>
               <ArticleContent>
-                <ArticleTitle article={article}></ArticleTitle>
-                <ArticleText article={article}></ArticleText>
-                <ArticleLink article={article}></ArticleLink>
+                <ArticleTitleContainer>
+                  <ArticleTitle article={article}></ArticleTitle>
+                </ArticleTitleContainer>
+                <ArticleTextContainer>
+                  <ArticleText article={article}></ArticleText>
+                </ArticleTextContainer>
+                <ArticleLinkContainer>
+                  <ArticleLink article={article}></ArticleLink>
+                </ArticleLinkContainer>
               </ArticleContent>
               <ArticleActions>
                 {user ? <ActionControls article={article}></ActionControls> : ''}

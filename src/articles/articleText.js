@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
+import styled from 'styled-components';
 import { getArticleOnEdit, getArticleOnEditText } from '../store/selectors/selector';
 import { editArticleText } from '../store/actions/actionsCreator';
 import EditableText from '../common/editableText';
 
-const ArticelText = ({ article, articleOnEdit, editText, textOnEdit }) => {
-
+const ArticleText = ({ article, articleOnEdit, editText, textOnEdit }) => {
   return <EditableText
     article={article}
     articleOnEdit={articleOnEdit}
@@ -27,4 +27,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticelText);
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleText);
