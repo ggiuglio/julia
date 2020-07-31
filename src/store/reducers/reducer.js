@@ -15,7 +15,8 @@ import {
     EDIT_NEW_ARTICLE_TEXT,
     EDIT_NEW_ARTICLE_LINK,
     RESET_NEW_ARTICLE,
-    OPEN_NEW_ARTICLE_FORM
+    OPEN_NEW_ARTICLE_FORM,
+    LOAD_RADIOS
 } from '../actions/actionsTypes'
 
 export const INITIAL_STATE = {
@@ -30,7 +31,8 @@ export const INITIAL_STATE = {
     showNewArticleForm: false,
     newArticleTitle: undefined,
     newArticleText: undefined,
-    newArticleLink: undefined
+    newArticleLink: undefined,
+    radios: undefined,
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -149,6 +151,19 @@ const Reducer = (state = INITIAL_STATE, action) => {
                 newArticleTitle: undefined,
                 newArticleText: undefined,
                 newArticleLink: undefined,
+            }
+        }
+        case LOAD_RADIOS: {
+            let radios = [];
+            if (action.radios) {
+                Object.keys(action.radios).forEach(k => {
+                    action.radios[k].firebaseId = k;
+                    radios.push(action.radios[k])
+                });
+            }
+            return {
+                ...state,
+                radios: radios
             }
         }
         default:

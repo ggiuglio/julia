@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import { history } from '../App';
+import {history} from '../App';
 
 const Container = styled.div`
   width: calc(100vw - 10px);
@@ -52,60 +52,63 @@ const Element = styled.div`
 `;
 const InnerElement = styled.div`
   height: 0px;
-  width: ${({ selected }) => selected ? '100%' : '0px'}
+  width: ${({selected}) => selected ? '100%' : '0px'}
   border-bottom: 1px solid black;
   transition: width 0.5s;
 `;
 
 const Menu = () => {
-  const [selectedItem, setSelectedItem] = useState(1);
+    const [selectedItem, setSelectedItem] = useState(1);
 
-  const selectPage = (link) => {
-    setSelectedItem(link);
+    const selectPage = (link) => {
+        setSelectedItem(link);
 
-    switch (link) {
-      case 1:
-        history.push('/julia/about')
-        break;
-      case 2:
-        history.push('/julia/articles')
-        break;
-      default:
-        break;
+        switch (link) {
+            case 1:
+                history.push('/julia/about')
+                break;
+            case 2:
+                history.push('/julia/articles')
+                break;
+            case 3:
+                history.push('/julia/radio')
+                break;
+            default:
+                break;
+        }
     }
-  }
 
-  return <Container>
-    <InnerContainer>
-      <MenuContainer >
-        <Element onClick={() => selectPage(1)}>
-          About
-          <InnerElement selected={selectedItem === 1}>
-          </InnerElement>
-        </Element>
-        <Element onClick={() => selectPage(2)}>
-          Articles
-          <InnerElement selected={selectedItem === 2} >
-          </InnerElement>
-        </Element>
-        <Element onClick={() => selectPage(3)}>
-          Radio
-          <InnerElement selected={selectedItem === 3}>
-          </InnerElement>
-        </Element>
-        <Element onClick={() => selectPage(4)}>
-          TV
-          <InnerElement selected={selectedItem === 4}>
-          </InnerElement>
-        </Element>
-        <Element onClick={() => selectPage(5)}>
-          Photos
-          <InnerElement selected={selectedItem === 5}>
-          </InnerElement>
-        </Element>
-      </MenuContainer>
-    </InnerContainer>
-  </Container>
+    return <Container>
+        <InnerContainer>
+            <MenuContainer>
+                <Element onClick={() => selectPage(1)}>
+                    About
+                    <InnerElement selected={selectedItem === 1}>
+                    </InnerElement>
+                </Element>
+                <Element onClick={() => selectPage(2)}>
+                    Articles
+                    <InnerElement selected={selectedItem === 2}>
+                    </InnerElement>
+                </Element>
+                <Element onClick={() => selectPage(3)}>
+                    Radio
+                    <InnerElement selected={selectedItem === 3}>
+                    </InnerElement>
+                </Element>
+                <Element onClick={() => selectPage(4)}>
+                    TV
+                    <InnerElement selected={selectedItem === 4}>
+                    </InnerElement>
+                </Element>
+                <Element onClick={() => selectPage(5)}>
+                    Photos
+                    <InnerElement selected={selectedItem === 5}>
+                    </InnerElement>
+                </Element>
+            </MenuContainer>
+        </InnerContainer>
+    </Container>
 
 }
 

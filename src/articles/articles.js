@@ -111,7 +111,6 @@ const ArticleLinkContainer = styled.div`
   text-decoration: underline;
   cursor: pointer;
 `;
-
 const ArticleActions = styled.div``;
 
 const Articles = ({ articles, loadArticles, user }) => {
