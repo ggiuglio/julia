@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { connect } from "react-redux";
-import { loadArticlesAction, openNewArticleForm, resetNewArticle } from '../store/actions/actionsCreator';
+import { loadArticlesAction, openNewArticleForm, resetNewArticle, editNewArticleImage } from '../store/actions/actionsCreator';
 import { getArticles, getUser, getNewArticleFormStatus } from '../store/selectors/selector';
 import NewArticleActionControls from './actionControls';
 import NewArticleTitle from './newArticleTitle';
@@ -58,12 +58,22 @@ const NewArticleIntor = styled.div`
 `;
 const ArticleActions = styled.div``;
 
-const NewArticle = ({ articles, loadArticles, user, showNew, showNewArticle, cancelNewArticle }) => {
+const NewArticle = ({ user, showNew, showNewArticle, cancelNewArticle, editImage }) => {
   const [article, setArticle] = useState({});
   const [file, setFile] = useState(false);
 
   const handleFileSelection = (file) => {
-    setFile(file);
+      setFile(file);
+
+      console.log(file);
+
+      setFile(URL.createObjectURL(file));
+
+      const articleImage = {
+        image: file,
+        src: file.name
+      };
+      editImage(articleImage);
   }
 
   return <Container>
@@ -75,8 +85,12 @@ const NewArticle = ({ articles, loadArticles, user, showNew, showNewArticle, can
           </NewArticleIntor>
           <Article>
             <ArticleBody>
-              <ArticleImage src={article.img} />
-              <input type="file" onChange={e => handleFileSelection(e.target.files[0])}/>
+              <div>
+                <div>
+                  <input type="file" accept="image/*" onChange={e => handleFileSelection(e.target.files[0])} />
+                </div>
+                {file ? <ArticleImage src={file} /> : ''}
+              </div>
               <ArticleContent>
                 <NewArticleTitle article={article}></NewArticleTitle>
                 <NewArticleText article={article}></NewArticleText>
@@ -100,7 +114,6 @@ const NewArticle = ({ articles, loadArticles, user, showNew, showNewArticle, can
 
 const mapStateToProps = state => {
   return {
-    articles: getArticles(state),
     user: getUser(state),
     showNew: getNewArticleFormStatus(state),
   }
@@ -108,9 +121,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadArticles: () => dispatch(loadArticlesAction()),
     showNewArticle: () => dispatch(openNewArticleForm()),
-    cancelNewArticle: () => dispatch(resetNewArticle())
+    cancelNewArticle: () => dispatch(resetNewArticle()),
+    editImage: (image) => dispatch(editNewArticleImage(image))
   }
 };
 

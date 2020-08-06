@@ -89,6 +89,8 @@ const Articles = ({ articles, loadArticles, user }) => {
     }
   });
 
+  console.log(articles);
+
   return <Container>
     <MainContent>
       <Introduction>
@@ -97,9 +99,9 @@ const Articles = ({ articles, loadArticles, user }) => {
       </Introduction>
       {
         articles ? articles.map(article =>
-          <Article key={article.firebareId}>
+          <Article key={article.firebaseId}>
             <ArticleBody>
-              <ArticleImage src={article.img} />
+              {article.img ? <ArticleImage src={article.img} /> : ''}
               <ArticleContent>
                 <ArticleTitle article={article}></ArticleTitle>
                 <ArticleText article={article}></ArticleText>

@@ -14,6 +14,7 @@ import {
     EDIT_NEW_ARTICLE_TITLE,
     EDIT_NEW_ARTICLE_TEXT,
     EDIT_NEW_ARTICLE_LINK,
+    EDIT_NEW_ARTICLE_IMAGE,
     RESET_NEW_ARTICLE,
     OPEN_NEW_ARTICLE_FORM
 } from '../actions/actionsTypes'
@@ -30,7 +31,8 @@ export const INITIAL_STATE = {
     showNewArticleForm: false,
     newArticleTitle: undefined,
     newArticleText: undefined,
-    newArticleLink: undefined
+    newArticleLink: undefined,
+    newArticleImage: undefined
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
@@ -136,6 +138,12 @@ const Reducer = (state = INITIAL_STATE, action) => {
                 newArticleLink: action.link,
             }
         }
+        case EDIT_NEW_ARTICLE_IMAGE: {
+            return {
+                ...state,
+                newArticleImage: action.image,
+            }
+        }
         case OPEN_NEW_ARTICLE_FORM: {
             return {
                 ...state,
@@ -149,6 +157,7 @@ const Reducer = (state = INITIAL_STATE, action) => {
                 newArticleTitle: undefined,
                 newArticleText: undefined,
                 newArticleLink: undefined,
+                newArticleImage: undefined
             }
         }
         default:
