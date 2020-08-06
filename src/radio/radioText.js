@@ -5,7 +5,7 @@ import { getArticleOnEdit, getArticleOnEditText } from '../store/selectors/selec
 import { editArticleText } from '../store/actions/actionsCreator';
 import EditableText from '../common/editableText';
 
-const ArticleText = ({ article, articleOnEdit, editText, textOnEdit }) => {
+const RadioText = ({ article, articleOnEdit, editText, textOnEdit }) => {
   return <EditableText
     article={article}
     articleOnEdit={articleOnEdit}
@@ -27,4 +27,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleText);
+export default connect(mapStateToProps, mapDispatchToProps)(RadioText);

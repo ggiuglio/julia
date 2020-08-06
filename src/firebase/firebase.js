@@ -7,10 +7,9 @@ class Firebase {
   constructor() {
     app.initializeApp(FirebaseConfig);
     this.articles = app.database().ref('articles');
+    this.radios = app.database().ref('radios');
     this.provider = new firebase.auth.GoogleAuthProvider()
     this.storageRef = app.storage().ref();
-
-
     this.auth = app.auth();
   }
 

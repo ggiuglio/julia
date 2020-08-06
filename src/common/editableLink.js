@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 const TitleContainer = styled.div`
@@ -14,41 +14,49 @@ const LinkEdit = styled.input`
   margin-bottom: 5px;
 `;
 
-const EditableLink = ({ article, articleOnEdit, editLink, linkOnEdit, linkPlaceholder, linkNamePlaceholder }) => {
-  const [link, setLink] = useState(article.link);
-  const [linkName, setLinkName] = useState(article.linkName);
+const EditableLink = ({article, articleOnEdit, editLink, linkOnEdit, linkPlaceholder, linkNamePlaceholder, hideLink}) => {
+    const [link, setLink] = useState(article.link);
+    const [linkName, setLinkName] = useState(article.linkName);
 
-  let timeout = undefined;
+    let timeout = undefined;
 
-  const changeLink = (linkInput) => {
-    setLink(linkInput);
-    if (timeout) {
-      clearInterval(timeout);
+    const changeLink = (linkInput) => {
+        setLink(linkInput);
+        if (timeout) {
+            clearInterval(timeout);
+        }
+        timeout = setInterval(editLink({linkName: linkName, link: linkInput}, 200));
     }
-    timeout = setInterval(editLink({ linkName: linkName, link: linkInput }, 200));
-  }
 
-  const changeLinkName = (linkNameInput) => {
-    setLinkName(linkNameInput);
-    if (timeout) {
-      clearInterval(timeout);
+    const changeLinkName = (linkNameInput) => {
+        setLinkName(linkNameInput);
+        if (timeout) {
+            clearInterval(timeout);
+        }
+        timeout = setInterval(editLink({linkName: linkNameInput, link: link}, 200));
     }
-    timeout = setInterval(editLink({ linkName: linkNameInput, link: link }, 200));
-  }
 
-  const openArticle = () => {
-    window.open(article.link);
-  };
+    const openArticle = () => {
+        window.open(article.link);
+    };
 
-  return <TitleContainer>
-    {article.firebaseId !== articleOnEdit ?
-      <LinkFixed onClick={() => openArticle()}>{article.linkName}</LinkFixed> :
-      <div>
-        <LinkEdit value={linkName} placeholder={linkNamePlaceholder} onChange={(e) => changeLinkName(e.target.value)}></LinkEdit>
-        <LinkEdit value={link} placeholder={linkPlaceholder} onChange={(e) => changeLink(e.target.value)}></LinkEdit>
-      </div>
-    }
-  </TitleContainer>
+    return <TitleContainer>
+        {article.firebaseId !== articleOnEdit ?
+            <div>
+                {!hideLink ? <LinkFixed onClick={() => openArticle()}>{article.linkName}</LinkFixed> : ''}
+            </div> :
+            <div>
+                {!hideLink ?
+                    <LinkEdit value={linkName} placeholder={linkNamePlaceholder}
+                              onChange={(e) => changeLinkName(e.target.value)}>
+                    </LinkEdit>
+                    : ''
+                }
+                <LinkEdit value={link} placeholder={linkPlaceholder} onChange={(e) => changeLink(e.target.value)}>
+                </LinkEdit>
+            </div>
+        }
+    </TitleContainer>
 }
 
 export default EditableLink;
