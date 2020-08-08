@@ -19,7 +19,7 @@ import {
     SET_USER,
     LOAD_RADIOS
 } from './actionsTypes.js'
-import {FirebaseInstance, history} from '../../App';
+import { FirebaseInstance, history } from '../../App';
 
 export const chooseBackgroundAction = () => {
     return dispatch => {
@@ -62,7 +62,7 @@ export const setUserAction = (user) => {
     return dispatch => {
         dispatch({
             type: SET_USER,
-            user: user ? {email: user.email} : null
+            user: user ? { email: user.email } : null
         });
     }
 }
@@ -190,12 +190,12 @@ export const editNewArticleText = (text) => {
 }
 
 export const editNewArticleImage = (image) => {
-  return dispatch => {
-    dispatch({
-      type: EDIT_NEW_ARTICLE_IMAGE,
-      image: image
-    });
-  }
+    return dispatch => {
+        dispatch({
+            type: EDIT_NEW_ARTICLE_IMAGE,
+            image: image
+        });
+    }
 }
 
 export const resetNewArticle = () => {
@@ -207,33 +207,33 @@ export const resetNewArticle = () => {
 }
 
 export const createArticle = () => {
-  return (dispatch, getState) => {
+    return (dispatch, getState) => {
 
-    if (getState().newArticleImage && 
-        getState().newArticleImage.image && 
-        getState().newArticleLink && 
-        getState().newArticleText && 
-        getState().newArticleTitle) {
+        if (getState().newArticleImage &&
+            getState().newArticleImage.image &&
+            getState().newArticleLink &&
+            getState().newArticleText &&
+            getState().newArticleTitle) {
 
-      const article = {
-        title: getState().newArticleTitle,
-        text: getState().newArticleText,
-        link: articleLink.link,
-        linkName: articleLink.linkName,
-        imageSrc: getState().newArticleImage.src
-      };
+            const article = {
+                title: getState().newArticleTitle,
+                text: getState().newArticleText,
+                link: articleLink.link,
+                linkName: articleLink.linkName,
+                imageSrc: getState().newArticleImage.src
+            };
 
 
-      const ImageRef = FirebaseInstance.storageRef.child(`/article-images/${getState().newArticleImage.src}`);
-      ImageRef.put(getState().newArticleImage.image).then(() => {
-        return FirebaseInstance.articles.push(article).then(() => {
-          dispatch({
-            type: RESET_NEW_ARTICLE,
-          });
-        });
-      })
-    }
-  };
+            const ImageRef = FirebaseInstance.storageRef.child(`/article-images/${getState().newArticleImage.src}`);
+            ImageRef.put(getState().newArticleImage.image).then(() => {
+                return FirebaseInstance.articles.push(article).then(() => {
+                    dispatch({
+                        type: RESET_NEW_ARTICLE,
+                    });
+                });
+            })
+        }
+    };
 }
 
 export const openNewArticleForm = () => {
