@@ -218,8 +218,8 @@ export const createArticle = () => {
             const article = {
                 title: getState().newArticleTitle,
                 text: getState().newArticleText,
-                link: articleLink.link,
-                linkName: articleLink.linkName,
+                link: getState().articleLink.link,
+                linkName: getState().articleLink.linkName,
                 imageSrc: getState().newArticleImage.src
             };
 

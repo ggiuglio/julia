@@ -33,11 +33,8 @@ export const INITIAL_STATE = {
     newArticleTitle: undefined,
     newArticleText: undefined,
     newArticleLink: undefined,
-<<<<<<< HEAD
-    newArticleImage: undefined
-=======
-    radios: undefined,
->>>>>>> 8679cb6c2176ac6b4707d653a3d6eb0ec4198611
+    newArticleImage: undefined,
+    radios: undefined
 };
 
 const Reducer = (state = INITIAL_STATE, action) => {
