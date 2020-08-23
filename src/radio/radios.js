@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import styled, {keyframes} from 'styled-components';
-import {connect} from "react-redux";
-import {loadRadiosAction} from '../store/actions/actionsCreator';
-import {getRadios, getUser} from '../store/selectors/selector';
+import React, { useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+import { connect } from "react-redux";
+import { loadRadiosAction } from '../store/actions/actionsCreator';
+import { getRadios, getUser } from '../store/selectors/selector';
 import RadioActionControls from './radioActionControls';
 import RadioTitle from './radioTitle';
 import RadioText from './radioText';
@@ -42,6 +42,9 @@ const Container = styled.div`
 `;
 const MainContent = styled.div`
   padding: 0 5vw;
+  @media (min-width: 600px) {
+    padding: 0 10vw;
+  }
 `;
 const Introduction = styled.div`
   padding: 20px 10px;
@@ -118,59 +121,59 @@ const RadioLinkContainer = styled.div`
 
 const RadioActions = styled.div``;
 
-const Radios = ({radios, loadRadios, user}) => {
-    useEffect(() => {
-        if (!radios) {
-            loadRadios();
-        }
-    });
+const Radios = ({ radios, loadRadios, user }) => {
+  useEffect(() => {
+    if (!radios) {
+      loadRadios();
+    }
+  });
 
-    return <Container>
-        <MainContent>
-            <Introduction>
-                Here there are the radio feature Julia made, click on the video player to listen
+  return <Container>
+    <MainContent>
+      <Introduction>
+        Here there are the radio feature Julia made, click on the video player to listen
             </Introduction>
-            {
-                radios ? radios.map(radio =>
-                    <Radio key={radio.firebareId}>
-                        <RadioBody>
-                            <RadioPlayerContainer>
-                                <RadioPlayer videoId={radio.link}/>
-                            </RadioPlayerContainer>
-                            <RadioContent>
-                                <RadioTitleContainer>
-                                    <RadioTitle article={radio}></RadioTitle>
-                                </RadioTitleContainer>
-                                <RadioTextContainer>
-                                    <RadioText article={radio}></RadioText>
-                                </RadioTextContainer>
-                                <RadioLinkContainer>
-                                    <RadioLink article={radio}></RadioLink>
-                                </RadioLinkContainer>
-                            </RadioContent>
-                            <RadioActions>
-                                {user ? <RadioActionControls article={radio}></RadioActionControls> : ''}
-                            </RadioActions>
-                        </RadioBody>
-                    </Radio>
-                ) : ''
-            }
-            <NewArticle></NewArticle>
-        </MainContent>
-    </Container>
+      {
+        radios ? radios.map(radio =>
+          <Radio key={radio.firebareId}>
+            <RadioBody>
+              <RadioPlayerContainer>
+                <RadioPlayer videoId={radio.link} />
+              </RadioPlayerContainer>
+              <RadioContent>
+                <RadioTitleContainer>
+                  <RadioTitle article={radio}></RadioTitle>
+                </RadioTitleContainer>
+                <RadioTextContainer>
+                  <RadioText article={radio}></RadioText>
+                </RadioTextContainer>
+                <RadioLinkContainer>
+                  <RadioLink article={radio}></RadioLink>
+                </RadioLinkContainer>
+              </RadioContent>
+              <RadioActions>
+                {user ? <RadioActionControls article={radio}></RadioActionControls> : ''}
+              </RadioActions>
+            </RadioBody>
+          </Radio>
+        ) : ''
+      }
+      <NewArticle></NewArticle>
+    </MainContent>
+  </Container>
 }
 
 const mapStateToProps = state => {
-    return {
-        radios: getRadios(state),
-        user: getUser(state)
-    }
+  return {
+    radios: getRadios(state),
+    user: getUser(state)
+  }
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        loadRadios: () => dispatch(loadRadiosAction()),
-    }
+  return {
+    loadRadios: () => dispatch(loadRadiosAction()),
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Radios);

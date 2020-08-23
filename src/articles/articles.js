@@ -40,7 +40,7 @@ const Container = styled.div`
   }
 `;
 const MainContent = styled.div`
-  padding: 0 5vw;
+  padding: 0 10vw;
 `;
 const Introduction = styled.div`
   padding: 20px 10px;
@@ -94,15 +94,14 @@ const ArticleContent = styled.div`
   }
 `;
 const ArticleTitleContainer = styled.div`
-  border-bottom: 1px solid black;
+  font-size: 24px;
 `;
 const ArticleTextContainer = styled.div`
-  background-color: #f5f5f5;
   min-height: 100px;
   padding: 5px;
   margin: 7px 0;
   @media (min-width: 600px) {
-    min-height: 170px;
+    height: 160px;
     margin: 12px 0;
   }
 `;

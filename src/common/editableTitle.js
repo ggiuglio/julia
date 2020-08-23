@@ -5,7 +5,6 @@ const TitleContainer = styled.div`
   margin-right: 10px;
 `;
 const TitleFixed = styled.div`
-  font-size: 18px;
   font-weight: bold;
 `;
 const TitleEdit = styled.input`

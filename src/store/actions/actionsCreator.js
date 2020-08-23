@@ -72,15 +72,20 @@ export const setUserAction = (user) => {
 export const loadArticlesAction = () => {
     return dispatch => {
         return FirebaseInstance.articles.orderByChild('id').on('value', snapshot => {
-            const art = JSON.parse(JSON.stringify(snapshot.val()));
-            const urlRef = FirebaseInstance.storageRef.child("article-images/acet.jpg")
-            urlRef.getDownloadURL().then(url => {
-                Object.values(art).map(a => {
-                    a.img = url;
-                });
+            const articles = JSON.parse(JSON.stringify(snapshot.val()));
+
+            const asyncCalls = [];
+            Object.values(articles).map(art => {
+                const urlRef = FirebaseInstance.storageRef.child(`article-images/${art.imageSrc}`)
+                asyncCalls.push(urlRef.getDownloadURL().then(url => {
+                    art.img = url;
+                }));
+            });
+
+            Promise.all(asyncCalls).then(() => {
                 return dispatch({
                     type: LOAD_ARTICLES,
-                    articles: art
+                    articles: articles
                 });
             });
         });
@@ -98,14 +103,21 @@ export const setArticleOnEdit = (articleId) => {
 
 export const deleteArticleConfirm = (articleId) => {
     return dispatch => {
+
+        FirebaseInstance.articles.once("child_removed", data => {
+            const deletdArticle = JSON.parse(JSON.stringify(data.val()));
+            const urlRef = FirebaseInstance.storageRef.child(`article-images/${deletdArticle.imageSrc}`).delete();
+        })
+
         return FirebaseInstance.articles.child(articleId).remove().then(() => {
             return dispatch({
                 type: DELETE_ARTICLE_SUCCESS
             })
-        })
-            .catch((r) => {
-                console.log('error', r);
-            });
+        }).catch((r) => {
+            console.log('error', r);
+        });
+
+
     }
 }
 
@@ -212,17 +224,18 @@ export const createArticle = () => {
         if (getState().newArticleImage &&
             getState().newArticleImage.image &&
             getState().newArticleLink &&
+            getState().newArticleLink.linkName &&
+            getState().newArticleLink.link &&
             getState().newArticleText &&
             getState().newArticleTitle) {
 
             const article = {
                 title: getState().newArticleTitle,
                 text: getState().newArticleText,
-                link: getState().articleLink.link,
-                linkName: getState().articleLink.linkName,
+                link: getState().newArticleLink.link,
+                linkName: getState().newArticleLink.linkName,
                 imageSrc: getState().newArticleImage.src
             };
-
 
             const ImageRef = FirebaseInstance.storageRef.child(`/article-images/${getState().newArticleImage.src}`);
             ImageRef.put(getState().newArticleImage.image).then(() => {

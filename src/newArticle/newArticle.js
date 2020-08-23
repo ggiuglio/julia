@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { connect } from "react-redux";
-import { loadArticlesAction, openNewArticleForm, resetNewArticle, editNewArticleImage } from '../store/actions/actionsCreator';
-import { getArticles, getUser, getNewArticleFormStatus } from '../store/selectors/selector';
+import { openNewArticleForm, resetNewArticle, editNewArticleImage } from '../store/actions/actionsCreator';
+import { getUser, getNewArticleFormStatus } from '../store/selectors/selector';
 import NewArticleActionControls from './actionControls';
 import NewArticleTitle from './newArticleTitle';
 import NewArticleText from './newArticleText';
 import NewArticleLink from './newArticleLink';
 import addImage from '../assets/images/add.png';
+import { v4 as uuidv4 } from 'uuid';
 
 const Container = styled.div`
   margin: 20px 0;
@@ -64,15 +65,13 @@ const NewArticle = ({ user, showNew, showNewArticle, cancelNewArticle, editImage
 
   const handleFileSelection = (file) => {
       setFile(file);
-
-      console.log(file);
-
       setFile(URL.createObjectURL(file));
 
       const articleImage = {
         image: file,
-        src: file.name
+        src: uuidv4() + '.' + file.name.split('.').pop()
       };
+
       editImage(articleImage);
   }
 
