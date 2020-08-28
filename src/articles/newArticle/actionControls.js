@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from "react-redux";
-import { createArticle, cancelArticleEdit, resetNewArticle } from '../store/actions/actionsCreator';
-import okIcon from '../assets/images/ok2.png';
-import cancelIcon from '../assets/images/cancel2.png';
+import { createArticle, cancelArticleEdit, resetNewArticle } from '../../store/actions/actionsCreator';
+import okIcon from '../../assets/images/ok2.png';
+import cancelIcon from '../../assets/images/cancel2.png';
 
 const NewArticleActions = styled.div`
   width: 100px;

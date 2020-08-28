@@ -7,7 +7,7 @@ import RadioActionControls from './radioActionControls';
 import RadioTitle from './radioTitle';
 import RadioText from './radioText';
 import RadioLink from './radioLink';
-import NewArticle from '../newArticle/newArticle';
+import NewArticle from '../articles/newArticle/newArticle';
 import YouTube from 'react-youtube';
 
 const slideIn = keyframes`

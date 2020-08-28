@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { editNewArticleText } from '../store/actions/actionsCreator';
-import EditableText from '../common/editableText';
+import { editNewArticleText } from '../../store/actions/actionsCreator';
+import EditableText from '../../common/editableText';
 
 const NewArticelText = ({ editText }) => {
   const newArticle = {firebaseId: '000', text: ""}

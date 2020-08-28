@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { connect } from "react-redux";
-import { openNewArticleForm, resetNewArticle, editNewArticleImage } from '../store/actions/actionsCreator';
-import { getUser, getNewArticleFormStatus } from '../store/selectors/selector';
+import { openNewArticleForm, resetNewArticle, editNewArticleImage } from '../../store/actions/actionsCreator';
+import { getUser, getNewArticleFormStatus } from '../../store/selectors/selector';
 import NewArticleActionControls from './actionControls';
 import NewArticleTitle from './newArticleTitle';
 import NewArticleText from './newArticleText';
 import NewArticleLink from './newArticleLink';
-import addImage from '../assets/images/add.png';
+import addImage from '../../assets/images/add.png';
 import { v4 as uuidv4 } from 'uuid';
 
 const Container = styled.div`

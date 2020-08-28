@@ -7,7 +7,7 @@ import ActionControls from './actionControls';
 import ArticleTitle from './articleTitle';
 import ArticleText from './articleText';
 import ArticleLink from './articleLink';
-import NewArticle from '../newArticle/newArticle';
+import NewArticle from './newArticle/newArticle';
 
 const slideIn = keyframes`
   from {
@@ -85,7 +85,7 @@ const ArticleBody = styled.div`
 `;
 const ArticleContent = styled.div`
   @media (min-width: 600px) {
-    padding-right: 20px;
+    padding: 0 20px;
     align-items: top;
   font-size: 14px;
   flex-grow: 1;

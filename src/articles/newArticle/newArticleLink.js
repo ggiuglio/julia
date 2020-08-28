@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { editNewArticleLink } from '../store/actions/actionsCreator';
-import { getNewArticleLink } from '../store/selectors/selector';
-import EditableLink from '../common/editableLink';
+import { editNewArticleLink } from '../../store/actions/actionsCreator';
+import { getNewArticleLink } from '../../store/selectors/selector';
+import EditableLink from '../../common/editableLink';
 
 const NewArticleLink = ({ editLink, link }) => {
 const newArticle = {firebaseId: '000', link: "", linkName: ""}
